@@ -30,31 +30,31 @@ def url_to_string(url):
 	'''
 	converts url to string
 	returns string
+
+	Possible problem: the returned string includes extra information from the whole page, rather than just the article itself.
 	'''
-	#text = urllib.request.urlopen(url).read()
-	#type(text)
 	html = requests.get(url).text # string of htmls code
-	#text = soup.get_text()
-	text = html2text.html2text(html)
-	#text = html2text.html2text(text)
-	#print('hello')
+	text = html2text.html2text(html) # readable text from html
+
 	return text
 
-def frequency_predictor(url):
+def Tfidf_predictors(url):
 	'''
-	text_article is a long string of the entire article
-	return a dictionary of frequencies of different words
+	takes url of an article
+	return tfidf features of the article
 
 	subtasks:
 	1. identify which words will be the keys of the returned dictionary
 	2. Later on parse the returned dictionary and form ints for as features for the matrix
 	'''
-	
+	text = url_to_string(url)
 	vectorizer = TfidfVectorizer()
-	predictors = vectorizer.fit_transform(text_article)
+	vectorizer.fit_transform(text.split())
+	predictors = vectorizer.get_feature_names()
+	return vectorizer.get_params()
 
 def main():
-	print(url_to_string('https://empirenews.net/trump-works-out-deal-with-mexican-president-theyre-paying-for-the-wall-were-giving-them-back-texas/'))
+	print(Tfidf_predictors('https://empirenews.net/trump-works-out-deal-with-mexican-president-theyre-paying-for-the-wall-were-giving-them-back-texas/'))
 if __name__ == "__main__": 
 	main()
 
