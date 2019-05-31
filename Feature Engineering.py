@@ -17,6 +17,7 @@ import bs4
 import html2text
 import requests
 from goose3 import Goose
+
 def file_to_string(filename):
 	'''
 	converts filename to a string
@@ -27,7 +28,7 @@ def file_to_string(filename):
 	file.close()
 	return text
 
-def url_to_goose(url):
+def url_to_goose_and_text(url):
 	'''
 	converts url to string
 	returns goose3 object of article
@@ -57,14 +58,15 @@ def Tfidf_predictors(url):
 	1. identify which words will be the keys of the returned dictionary
 	2. Later on parse the returned dictionary and form ints for as features for the matrix
 	'''
-	parsed = url_to_goose(url)
+	parsed = url_to_goose_and_text(url)
 	goose = parsed[0]
 	full_text = parsed[1]
 	cleaned_text = goose.cleaned_text
 	vectorizer = TfidfVectorizer()
-	X = vectorizer.fit_transform(cleaned_text.split())
+	#X = vectorizer.fit_transform([cleaned_text])
+	X = vectorizer.fit_transform(['and and and hello penis hello', 'hello hello and and','and and'])
 	predictors = vectorizer.get_feature_names()
-	return predictors
+	return X
 def main():
 	print(Tfidf_predictors('https://www.cnn.com/business/live-news/stock-market-news-today-053119/h_44e0ad8e0780f08dd887f354c74ecb32'))
 if __name__ == "__main__": 
