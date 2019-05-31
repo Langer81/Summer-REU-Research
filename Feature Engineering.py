@@ -16,6 +16,7 @@ import urllib.request
 import bs4
 import html2text
 import requests
+from goose3 import Goose
 def file_to_string(filename):
 	'''
 	converts filename to a string
@@ -26,17 +27,26 @@ def file_to_string(filename):
 	file.close()
 	return text
 
-def url_to_string(url):
+def url_to_goose(url):
 	'''
 	converts url to string
-	returns string
+	returns goose3 object of article
 
 	Possible problem: the returned string includes extra information from the whole page, rather than just the article itself.
 	'''
 	html = requests.get(url).text # string of htmls code
-	text = html2text.html2text(html) # readable text from html
-
-	return text
+	text_maker = html2text.HTML2Text() 
+	#define html options
+	text_maker.ignore_links = True
+	text_maker.skip_internal_links = True
+	text_maker.IGNORE_IMAGES = True
+	text_maker.IGNORE_TABLES = True
+	text_maker.BYPASS_TABLES = True
+	text_maker.ESCAPE_SNOB = True
+	text = text_maker.handle(html)
+	gooser = Goose()
+	goosed_article = gooser.extract(url = url)
+	return (goosed_article, text)
 
 def Tfidf_predictors(url):
 	'''
@@ -47,14 +57,16 @@ def Tfidf_predictors(url):
 	1. identify which words will be the keys of the returned dictionary
 	2. Later on parse the returned dictionary and form ints for as features for the matrix
 	'''
-	text = url_to_string(url)
+	parsed = url_to_goose(url)
+	goose = parsed[0]
+	full_text = parsed[1]
+	cleaned_text = goose.cleaned_text
 	vectorizer = TfidfVectorizer()
-	vectorizer.fit_transform(text.split())
+	X = vectorizer.fit_transform(cleaned_text.split())
 	predictors = vectorizer.get_feature_names()
-	return vectorizer.get_params()
-
+	return predictors
 def main():
-	print(Tfidf_predictors('https://empirenews.net/trump-works-out-deal-with-mexican-president-theyre-paying-for-the-wall-were-giving-them-back-texas/'))
+	print(Tfidf_predictors('https://www.cnn.com/business/live-news/stock-market-news-today-053119/h_44e0ad8e0780f08dd887f354c74ecb32'))
 if __name__ == "__main__": 
 	main()
 
