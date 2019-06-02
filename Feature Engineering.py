@@ -18,8 +18,11 @@ import html2text
 import requests
 from goose3 import Goose
 
-article_links = []
-article_labels = []
+article_links = [] # list of article urls
+article_texts = [] # list of cleaned article texts
+feature_matrix = [] # list of lists containing the features of each respective article 
+article_labels = [] # list of labels 1-8 representing what type of news an article is.
+
 
 def extract_urls():
 	url_file = open('url_training_set.txt', 'r')
@@ -70,15 +73,21 @@ def Tfidf_predictors():
 	1. identify which words will be the keys of the returned dictionary
 	2. Later on parse the returned dictionary and form ints for as features for the matrix
 	'''
-	article_texts = []
+	
 	full_texts = [] # in case we need this in the future
 	for url in article_links:
 		parsed = url_to_goose_and_text(url)
 		goose = parsed[0]
 		full_text = parsed[1]
-		cleaned_text = goose.title + ' ' +goose.cleaned_text
+		cleaned_text = goose.title + ' ' + goose.cleaned_text
 		article_texts.append(cleaned_text)
 		full_texts.append(full_text)
+	# pre processing over
+
+
+	################
+	## Start Here ##
+	################
 
 	vectorizer = TfidfVectorizer()
 	tfidf_sparse_matrix = vectorizer.fit_transform(article_texts)
@@ -88,20 +97,22 @@ def Tfidf_predictors():
 	print(len(vectorizer.vocabulary_))
 	print(len(predictors))
 	print(predictors)
-	print('=--------')
+	print('---------')
 	print(vectorizer.vocabulary_)
 	return tfidf_sparse_matrix
 
+def sparse_matrix_extraction(sparse_matrix):
+	'''
+	takes in sparse matrix of article no., word mappings, and tfidfs
+	Returns a completed feature matrix.
+
+	
 
 
-def main():
-	extract_urls()
-	print(Tfidf_predictors())
+
+extract_urls()
+sparse_tfidf_matrix = Tfidf_predictors()
 
 
 
-
-
-if __name__ == "__main__": 
-	main()
 
