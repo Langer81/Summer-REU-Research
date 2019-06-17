@@ -136,8 +136,9 @@ labels = url_stuff[1]
 tfidf_vectorizer = tfidf_processing(article_texts)
 features = tfidf_vectorizer.get_feature_names()
 sparse_tfidf_matrix = tfidf_vectorizer.fit_transform(article_texts)
+float_to_word = dict([[v,k] for k,v in tfidf_vectorizer.vocabulary_.items()])
 print(sparse_tfidf_matrix)
-
+print(float_to_word)
 
 
 
