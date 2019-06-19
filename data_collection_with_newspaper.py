@@ -22,9 +22,6 @@ real_news_outlets = ['https://www.cnn.com',
 					 'https://www.propublica.org',
 					 'https://www.reuters.com',
 					 'https://www.pbs.org/newshour',
-					 'https://www.nytimes.com/section/world',
-					 'https://www.nytimes.com/section/politics',
-					 'https://www.nytimes.com/section/nyregion',
 
 					 ]
 satire_news_outlets = ['http://www.hillarybeattrump.org',
@@ -74,15 +71,30 @@ satire_news_outlets = ['http://www.hillarybeattrump.org',
 						'http://nationalreport.net',
 						'https://www.newromantimes.com',
 						]
-def get_news_links(url):
+def get_opinion_article_links():
+	opinion_links = []
+	for outlet in real_news_outlets:
+		try:
+			source = newspaper.build(outlet)
+		except:
+			continue
+		categories = source.category_urls()
+		for i in range(len(categories)):
+			#print(categories[i])
+			if ('opinion' in categories[i]):
+				opinion_links.append(categories[i])
+	print(opinion_links)
+	write_news_links_to_file(opinion_links, 'opinion_data.txt')
+
+def get_news_links(broad_news_outlet_url):
 	article_links = []
 	try:
 		source = newspaper.build(url)
 	except:
 		return []
 	for article in source.articles:
-		if 'opinion' not in article.url and 'commentary' not in article.url:
-			article_links.append(article.url)
+		#if 'opinion' not in article.url and 'commentary' not in article.url:
+		article_links.append(article.url)
 	return article_links
 
 def write_news_links_to_file(links_list, write_file):
@@ -93,7 +105,7 @@ def write_news_links_to_file(links_list, write_file):
 	for url in article_links:
 		real_news_file.write(url + ' ')
 	real_news_file.close()
-	
+
 
 def feature_extraction(file):
 	'''
@@ -142,5 +154,7 @@ def read_fake_news_data_set(xl_file):
 	
 
 #write_to_file()
-see_lengths()
+
+#see_lengths()
 #read_fake_news_data_set('fake_dataset.xlsx')
+#get_opinion_article_links()
