@@ -86,10 +86,19 @@ def read_fake_news_data_set(xl_file):
 			continue
 		clean_fake_news_outlets.append(url)
 	write_news_links_to_file(clean_fake_news_outlets, 'fake_news_data.txt')
-	
+
+def remove_extras():
+	file = open('reputable_news_sources.txt', 'w')
+	url_string = ''
+	for url in real_news_outlets:
+		first_period = url.index('.')
+		second_period = url.rindex('.')
+		url_string += ' ' + url[first_period + 1 : second_period]
+	file.write(url_string)
 
 #write_to_file()
 
 #see_lengths()
 #read_fake_news_data_set('fake_dataset.xlsx')
 #get_opinion_article_links()
+remove_extras()
