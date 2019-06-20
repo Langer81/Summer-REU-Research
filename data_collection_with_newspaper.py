@@ -1,88 +1,35 @@
 import newspaper
 import xlrd
 import xlwt
-real_news_outlets = ['https://www.cnn.com', 
-					'https://www.nytimes.com',
-					 'https://www.wsj.com',
-					 'https://www.usatoday.com',
-					 'https://www.cbsnews.com',
-					 'https://www.msn.com',
-					 'https://www.npr.org',
-					 'https://www.latimes.com',
-					 'https://time.com/section',
-					 'https://www.theguardian.com',
-					 'https://www.washingtonpost.com',
-					 'https://abcnews.go.com',
-					 'https://news.yahoo.com',
-					 'https://www.theatlantic.com',
-					 'https://www.apnews.com',
-					 'https://www.bbc.com',
-					 'https://www.c-span.org',
-					 'https://www.economist.com',
-					 'https://www.propublica.org',
-					 'https://www.reuters.com',
-					 'https://www.pbs.org/newshour',
-					 'https://www.nytimes.com/section/world',
-					 'https://www.nytimes.com/section/politics',
-					 'https://www.nytimes.com/section/nyregion',
+real_news = open('reputable_news_sources.txt', 'r')
+real_news_outlets = real_news.read().split(' ')
+satire_news = open('satire_news_sources.txt', 'r')
+satire_news_outlets = satire_news.read().split(' ')
 
-					 ]
-satire_news_outlets = ['http://www.hillarybeattrump.org',
-						'https://aceflashman.wordpress.com',
-						'https://adobochronicles.com',
-						'https://babylonbee.com',
-						'http://bigamericannews.com',
-						'https://bluenewsnetwork.com',
-						'https://www.theonion.com',
-						'http://www.breakingburgh.com',
-						'https://bullshitnews.org',
-						'http://bizstandardnews.com',
-						'https://www.burrardstreetjournal.com',
-						'http://www.callthecops.net',
-						'http://cap-news.com',
-						'http://christwire.org',
-						'http://civictribune.com',
-						'https://www.clickhole.com',
-						'https://confederacyofdrones.com',
-						'https://www.cracked.com',
-						'http://dailysnark.com',
-						'https://www.dailysquib.co.uk',
-						'https://dailyworldupdate.us',
-						'http://www.derfmagazine.com',
-						'http://duhprogressive.com',
-						'https://empirenews.net',
-						'https://empiresports.co',
-						'https://encyclopediadramatica.rs/Main_Page',
-						'https://www.enduringvision.com',
-						'http://eveningharold.com',
-						'http://www.eyeofthetiber.com',
-						'https://www.flake.news',
-						'http://fmobserver.com',
-						'https://frankmag.ca',
-						'https://freedumjunkshun.com',
-						'https://gawken.com',
-						'https://www.gishgallop.com',
-						'https://gomerblog.com',
-						'http://harddawn.com',
-						'http://headlinennews.com',
-						'https://www.huzlers.com',
-						'https://chronicle.su',
-						'http://ladiesofliberty.net',
-						'http://www.larknews.com',
-						'http://liberalbias.com',
-						'http://liberaldarkness.com',
-						'http://nationalreport.net',
-						'https://www.newromantimes.com',
-						]
-def get_news_links(url):
+def get_opinion_article_links():
+	opinion_links = []
+	for outlet in real_news_outlets:
+		try:
+			source = newspaper.build(outlet)
+		except:
+			continue
+		categories = source.category_urls()
+		for i in range(len(categories)):
+			#print(categories[i])
+			if ('opinion' in categories[i]):
+				opinion_links.append(categories[i])
+	print(opinion_links)
+	write_news_links_to_file(opinion_links, 'opinion_data.txt')
+
+def get_news_links(broad_news_outlet_url):
 	article_links = []
 	try:
 		source = newspaper.build(url)
 	except:
 		return []
 	for article in source.articles:
-		if 'opinion' not in article.url and 'commentary' not in article.url:
-			article_links.append(article.url)
+		#if 'opinion' not in article.url and 'commentary' not in article.url:
+		article_links.append(article.url)
 	return article_links
 
 def write_news_links_to_file(links_list, write_file):
@@ -93,7 +40,7 @@ def write_news_links_to_file(links_list, write_file):
 	for url in article_links:
 		real_news_file.write(url + ' ')
 	real_news_file.close()
-	
+
 
 def feature_extraction(file):
 	'''
@@ -139,8 +86,19 @@ def read_fake_news_data_set(xl_file):
 			continue
 		clean_fake_news_outlets.append(url)
 	write_news_links_to_file(clean_fake_news_outlets, 'fake_news_data.txt')
-	
+
+def remove_extras():
+	file = open('reputable_news_sources.txt', 'w')
+	url_string = ''
+	for url in real_news_outlets:
+		first_period = url.index('.')
+		second_period = url.rindex('.')
+		url_string += ' ' + url[first_period + 1 : second_period]
+	file.write(url_string)
 
 #write_to_file()
-see_lengths()
+
+#see_lengths()
 #read_fake_news_data_set('fake_dataset.xlsx')
+#get_opinion_article_links()
+remove_extras()
