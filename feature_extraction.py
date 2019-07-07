@@ -1,6 +1,6 @@
 from newspaper import Article
 from goose3 import Goose
-import language_tool
+import language_check
 
 class ArticleVector:
 	'''
@@ -22,14 +22,14 @@ class ArticleVector:
 		if self.text == '':
 			raise Exception('The text for this article is empty.')
 
-	def check_grammar(self):
+	def grammar_index(self):
 		'''
-		returns the number of grammar mistakes of the article
+		returns the number of grammar mistakes of the article divided by the length of the article
 		'''
-
-		checker = language_tool.LanguageTool('en-US')
-		matches = language_tool.check(self.text) # of typos. 
-		return len(matches)
+	
+		checker = language_check.LanguageTool('en-US')
+		matches = checker.check(self.text) # of typos. 
+		return len(matches) / len(self.text)
 
 	def extract_article(self):
 		'''
@@ -79,4 +79,4 @@ class ArticleVector:
 		self.vector[0] = self.url_ending_feature() # reputable url ending feature 
 		self.vector[1] = self.from_reputable_source_feature() # reputable news source feature 
 		self.vector[2] = self.today_feature() #contains 'today' feature
-		self.vector[3] = self.check_grammar() #number of grammar mistakes feature
+		self.vector[3] = self.grammar_index() #number of grammar mistakes feature
