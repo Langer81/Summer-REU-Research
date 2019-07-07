@@ -11,7 +11,7 @@ class ArticleVector:
 
 	def __init__(self, url):
 		self.url = url
-		self.vector = [0] * num_dimensions 
+		self.vector = [0] * ArticleVector.num_dimensions 
 		article = self.extract_article()
 		self.title = article.title
 		self.text = article.cleaned_text
@@ -26,7 +26,7 @@ class ArticleVector:
 		'''
 		returns the number of grammar mistakes of the article
 		'''
-		
+
 		checker = language_tool.LanguageTool('en-US')
 		matches = language_tool.check(self.text) # of typos. 
 		return len(matches)
@@ -67,7 +67,7 @@ class ArticleVector:
 		'''
 		returns 1 if urls has reputable source in it
 		'''
-		for source in reputable_news_sources:
+		for source in ArticleVector.reputable_news_sources:
 			if source in self.url:
 				return 1
 		return 0
