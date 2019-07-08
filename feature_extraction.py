@@ -1,13 +1,14 @@
 from newspaper import Article
 from goose3 import Goose
 import language_check
+import nltk
 
 class ArticleVector:
 	'''
 	class whos purpose is to extract an article/urls vector for feature matrix
 	'''
 	reputable_news_sources = open('reputable_news_sources.txt', 'r').read().split(' ')
-	num_dimensions = 4 # changes as unique features are added
+	num_dimensions = 5 # changes as unique features are added
 
 	def __init__(self, url):
 		self.url = url
@@ -15,6 +16,7 @@ class ArticleVector:
 		article = self.extract_article()
 		self.title = article.title
 		self.text = article.cleaned_text
+		self.tokens = tokenize(self.text)
 		self.validate()
 		self.fill_vector()
 
@@ -40,7 +42,28 @@ class ArticleVector:
 		article = gooser.extract(url = self.url)
 		return article
 
-	def url_ending_feature(self):
+	def quotation_index(self):
+		num_quotations = 0
+		for word in self.text:
+			if word == '"':
+				num_qutations += 1
+		return num_quotations
+
+	def tokenize(self):
+		'''
+		returns tokenized and classified versions of text using nltk
+		'''
+		tokens = nltk.word_tokenize(self.text)
+		classified_tokens = nltk.pos_tag(tokens)
+		return classified_tokens
+
+	def past_tense_index(self):
+		'''
+		returns the number of past tense verbs in the text
+		'''
+		
+
+	def url_ending_index(self):
 		'''
 		returns 1 if url has reputable ending, 0 otherwise
 		'''
@@ -53,7 +76,7 @@ class ArticleVector:
 		else:
 			return 0
 
-	def today_feature(self):
+	def today_index(self):
 		'''
 		returns the number of times "today" appears in the article text
 		'''
@@ -63,7 +86,7 @@ class ArticleVector:
 				today_count += 1
 		return today_count
 
-	def from_reputable_source_feature(self):
+	def from_reputable_source_index(self):
 		'''
 		returns 1 if urls has reputable source in it
 		'''
@@ -76,7 +99,8 @@ class ArticleVector:
 		'''
 		calls all the methods created to fill in the articlevector
 		'''
-		self.vector[0] = self.url_ending_feature() # reputable url ending feature 
-		self.vector[1] = self.from_reputable_source_feature() # reputable news source feature 
-		self.vector[2] = self.today_feature() #contains 'today' feature
+		self.vector[0] = self.url_ending_index() # reputable url ending feature 
+		self.vector[1] = self.from_reputable_source_index() # reputable news source feature 
+		self.vector[2] = self.today_index() #contains 'today' feature
 		self.vector[3] = self.grammar_index() #number of grammar mistakes feature
+		self.vector[4] = self.quotation_index() #number of times a "" shows up.
