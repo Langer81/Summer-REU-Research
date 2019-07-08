@@ -21,15 +21,15 @@ class ArticleVector:
 	def validate(self):
 		if self.text == '':
 			raise Exception('The text for this article is empty.')
-
-	def grammar_index(self):
-		'''
-		returns the number of grammar mistakes of the article divided by the length of the article
-		'''
 	
-		checker = language_check.LanguageTool('en-US')
-		matches = checker.check(self.text) # of typos. 
-		return len(matches) / len(self.text)
+	def grammar_index(self):
+	'''
+	returns the number of grammar mistakes of the article divided by the length of the article
+	'''
+
+	checker = language_check.LanguageTool('en-US')
+	matches = checker.check(self.text) # of typos. 
+	return len(matches) / len(self.text)
 
 	def extract_article(self):
 		'''
