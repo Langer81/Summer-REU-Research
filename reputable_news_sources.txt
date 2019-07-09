@@ -1,1 +1,1 @@
- cnn nytimes wsj usatoday cbsnews msn npr latimes theguardian washingtonpost yahoo theatlantic apnews bbc c-span economist propublica reuters pbs
+cnn nytimes wsj usatoday cbsnews msn npr latimes theguardian washingtonpost yahoo theatlantic apnews bbc c-span economist propublica reuters pbs
