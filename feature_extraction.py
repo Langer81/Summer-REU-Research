@@ -164,4 +164,4 @@ class ArticleVector:
 		self.vector[5] = self.past_tense_index() #number of times a past tense verb shows up
 		self.vector[6] = self.present_tense_index() # number of times a present tense verb shows up / number of total words
 		self.vector[7] = self.should_index() # number of times "should" shows up / number of total words
-		self.vector[8] = self.opinion_index()
+		self.vector[8] = self.opinion_index() # whether or not opinion shows up in url
