@@ -8,7 +8,7 @@ class ArticleVector:
 	class whos purpose is to extract an article/urls vector for feature matrix
 	'''
 	reputable_news_sources = open('reputable_news_sources.txt', 'r').read().split(' ')
-	num_dimensions = 6 # changes as unique features are added
+	num_dimensions = 9 # changes as unique features are added
 
 	def __init__(self, url = "", text = ""):
 		self.vector = [0] * ArticleVector.num_dimensions 
@@ -19,7 +19,8 @@ class ArticleVector:
 			self.text = article.cleaned_text
 		elif text != "" and url == "": # user enters article text
 			self.text = text
-		self.paired_tokens = self.tokenize()
+		self.num_words = len(self.text.split(' '))
+		self.paired_tokens = self.tokenize() #list of tuples ex. [('helped', 'VBD')]
 		self.validate()
 		self.fill_vector()
 
@@ -34,7 +35,7 @@ class ArticleVector:
 
 		checker = language_check.LanguageTool('en-US')
 		matches = checker.check(self.text) # of typos. 
-		return len(matches) / len(self.text)
+		return len(matches) / self.num_words
 		'''
 		return 0
 	def extract_article(self):
@@ -51,8 +52,7 @@ class ArticleVector:
 		for letter in self.text:
 			if letter == '"':
 				num_quotations += 1
-		return num_quotations
-
+		return num_quotations / self.num_words
 	def tokenize(self):
 		'''
 		returns tokenized and classified versions of text using nltk
@@ -69,7 +69,16 @@ class ArticleVector:
 		for pair in self.paired_tokens:
 			if pair[1] == 'VBD' or pair[1] == 'VBN':
 				past_index += 1
-		return past_index
+		return past_index / self.num_words
+	def present_tense_index(self):
+		'''
+		returns the number of present tense verbs in the text over the 
+		'''
+		present_index = 0
+		for pair in self.paired_tokens:
+			if pair[1] == 'VBP' or pair[1] == 'VBZ' or pair[1] == 'VBG': # alter later if bad
+				present_index += 1
+		return present_index / self.num_words
 
 	def url_ending_index(self):
 		'''
@@ -107,10 +116,30 @@ class ArticleVector:
 		returns the number of times "today" appears in the article text
 		'''
 		today_count = 0
-		for word in self.text:
-			if word == 'today' or word == 'Today':
+		for word in self.text.split(' '):
+			if 'today' in word or 'Today' in word:
 				today_count += 1
-		return today_count
+		return today_count / self.num_words
+
+	def should_index(self):
+		'''
+		returns the number of times "should" appears over the total number of words
+		'''
+
+		should_count = 0
+		for word in self.text.split(' '):
+			if 'should' in word or 'Should' in word:
+				should_count += 1
+		return should_count / self.num_words
+
+	def opinion_index(self):
+		'''
+		returns 1 if 'opinion' or 'commentary' shows up in the url of an article
+		'''
+		if 'opinion' in self.url or 'commentary' in self.url:
+			return 1
+		else:
+			return 0
 
 	def from_reputable_source_index(self):
 		'''
@@ -133,3 +162,6 @@ class ArticleVector:
 		self.vector[3] = self.grammar_index() #number of grammar mistakes feature
 		self.vector[4] = self.quotation_index() #number of times a "" shows up.
 		self.vector[5] = self.past_tense_index() #number of times a past tense verb shows up
+		self.vector[6] = self.present_tense_index() # number of times a present tense verb shows up / number of total words
+		self.vector[7] = self.should_index() # number of times "should" shows up / number of total words
+		self.vector[8] = self.opinion_index()
