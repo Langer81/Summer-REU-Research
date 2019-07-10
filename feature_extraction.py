@@ -8,7 +8,8 @@ class ArticleVector:
 	class whos purpose is to extract an article/urls vector for feature matrix
 	'''
 	reputable_news_sources = open('reputable_news_sources.txt', 'r').read().split(' ')
-	num_dimensions = 9 # changes as unique features are added
+	satire_news_sources = open('satire_news_sources.txt', 'r').read().split(' ')
+	num_dimensions = 11 # changes as unique features are added
 
 	def __init__(self, url = "", text = ""):
 		self.vector = [0] * ArticleVector.num_dimensions 
@@ -31,13 +32,12 @@ class ArticleVector:
 	def grammar_index(self):
 		'''
 		returns the number of grammar mistakes of the article divided by the length of the article
-		
+		'''
 
 		checker = language_check.LanguageTool('en-US')
 		matches = checker.check(self.text) # of typos. 
 		return len(matches) / self.num_words
-		'''
-		return 0
+		#return 0
 	def extract_article(self):
 		'''
 		returns a goose article object
@@ -53,6 +53,7 @@ class ArticleVector:
 			if letter == '"':
 				num_quotations += 1
 		return num_quotations / self.num_words
+
 	def tokenize(self):
 		'''
 		returns tokenized and classified versions of text using nltk
@@ -70,6 +71,7 @@ class ArticleVector:
 			if pair[1] == 'VBD' or pair[1] == 'VBN':
 				past_index += 1
 		return past_index / self.num_words
+
 	def present_tense_index(self):
 		'''
 		returns the number of present tense verbs in the text over the 
@@ -80,13 +82,7 @@ class ArticleVector:
 				present_index += 1
 		return present_index / self.num_words
 
-	def url_ending_index(self):
-		'''
-		returns 1 if url has reputable ending, 0 otherwise
-		'''
-		if self.url == "":
-			return None
-		def nth_index(string, char, n, index = 0):
+	def nth_index(string, char, n, index = 0):
 			'''
 			return the index of the nth occurence of a character in a string
 			string - string of interest
@@ -99,12 +95,18 @@ class ArticleVector:
 			elif string == "":
 				raise Exception('Substring not found bro')
 			elif string[0] == char:
-				return nth_index(string[1:], char, n - 1, index + 1)
+				return ArticleVector.nth_index(string[1:], char, n - 1, index + 1)
 			elif string[0] != char:
-				return nth_index(string[1:], char, n, index + 1)
+				return ArticleVector.nth_index(string[1:], char, n, index + 1)
 
+	def url_ending_index(self):
+		'''
+		returns 1 if url has reputable ending, 0 otherwise
+		'''
+		if self.url == "":
+			return None
 		reputable_endings = ['.com', '.gov', '.org']
-		period_index = nth_index(self.url, '.', 2)
+		period_index = ArticleVector.nth_index(self.url, '.', 2)
 		ending = self.url[period_index : period_index + 4]
 		if ending in reputable_endings:
 			return 1
@@ -152,6 +154,32 @@ class ArticleVector:
 				return 1
 		return 0
 
+	def all_caps_index(self):
+		'''
+		return the number of words in all caps in the title and body divided by the total number of words
+		'''
+		caps_index = 0
+		for word in self.title:
+			if word.isupper():
+				caps_index += 1
+		for word in self.text.split(' '):
+			if word.isupper():
+				caps_index += 1
+		return caps_index / self.num_words
+
+	def from_satire_source_index(self):
+		'''
+		returns 1 if link is from satire news source
+		'''
+		first_period_index = self.url.index('.')
+		second_period_index = ArticleVector.nth_index(self.url, '.', 2)
+		source = self.url[first_period_index + 1 : second_period_index]
+
+		for outlet in ArticleVector.satire_news_sources:
+			if outlet in source:
+				return 1
+		return 0
+
 	def fill_vector(self):
 		'''
 		calls all the methods created to fill in the articlevector
@@ -165,3 +193,5 @@ class ArticleVector:
 		self.vector[6] = self.present_tense_index() # number of times a present tense verb shows up / number of total words
 		self.vector[7] = self.should_index() # number of times "should" shows up / number of total words
 		self.vector[8] = self.opinion_index() # whether or not opinion shows up in url
+		self.vector[9] = self.all_caps_index() # number of all caps words / number of total words
+		self.vector[10] = self.from_satire_source_index()
