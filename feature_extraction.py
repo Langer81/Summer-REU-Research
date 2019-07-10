@@ -9,7 +9,7 @@ class ArticleVector:
 	'''
 	reputable_news_sources = open('reputable_news_sources.txt', 'r').read().split(' ')
 	satire_news_sources = open('satire_news_sources.txt', 'r').read().split(' ')
-	num_dimensions = 11 # changes as unique features are added
+	num_dimensions = 12 # changes as unique features are added
 
 	def __init__(self, url = "", text = ""):
 		self.vector = [0] * ArticleVector.num_dimensions 
@@ -180,6 +180,17 @@ class ArticleVector:
 				return 1
 		return 0
 
+	def exclamation_index(self):
+		'''
+		returns number of exclamation points over total num of words.
+		'''
+
+		exclamation_index = 0
+		for letter in self.text:
+			if letter == '!':
+				exclamation_index += 1
+		return exclamation_index / self.num_words
+
 	def fill_vector(self):
 		'''
 		calls all the methods created to fill in the articlevector
@@ -194,4 +205,5 @@ class ArticleVector:
 		self.vector[7] = self.should_index() # number of times "should" shows up / number of total words
 		self.vector[8] = self.opinion_index() # whether or not opinion shows up in url
 		self.vector[9] = self.all_caps_index() # number of all caps words / number of total words
-		self.vector[10] = self.from_satire_source_index()
+		self.vector[10] = self.from_satire_source_index() # whether article is from satire news outlet.
+		self.vector[11] = self.exclamation_index() # number of exclamation points / number of total words
