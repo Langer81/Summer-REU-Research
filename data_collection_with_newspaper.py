@@ -1,6 +1,7 @@
 import newspaper
 import xlrd
 import xlwt
+from feature_extraction import ArticleVector
 real_news = open('reputable_news_sources.txt', 'r')
 real_news_outlets = real_news.read().split(' ')
 satire_news = open('satire_news_sources.txt', 'r')
@@ -88,11 +89,11 @@ def read_fake_news_data_set(xl_file):
 	write_news_links_to_file(clean_fake_news_outlets, 'fake_news_data.txt')
 
 def remove_extras():
-	file = open('reputable_news_sources.txt', 'w')
+	file = open('satire_news_sources.txt', 'w')
 	url_string = ''
-	for url in real_news_outlets:
+	for url in satire_news_outlets:
 		first_period = url.index('.')
-		second_period = url.rindex('.')
+		second_period = ArticleVector.nth_index(url, '.', 2)
 		url_string += ' ' + url[first_period + 1 : second_period]
 	file.write(url_string)
 
