@@ -2,14 +2,14 @@ from newspaper import Article
 from goose3 import Goose
 import language_check
 import nltk
-
+import pyapa 
 class ArticleVector:
 	'''
 	class whos purpose is to extract an article/urls vector for feature matrix
 	'''
 	reputable_news_sources = open('reputable_news_sources.txt', 'r').read().split(' ')
 	satire_news_sources = open('satire_news_sources.txt', 'r').read().split(' ')
-	num_dimensions = 12 # changes as unique features are added
+	num_dimensions = 13 # changes as unique features are added
 
 	def __init__(self, url = "", text = ""):
 		self.vector = [0] * ArticleVector.num_dimensions 
@@ -112,6 +112,13 @@ class ArticleVector:
 			return 1
 		else:
 			return 0
+	def apa_index(self):
+		'''
+		returns number of apa errors
+		'''
+		checker = pyapa.ApaCheck()
+		matches = checker.match(self.text)
+		return len(matches)
 
 	def today_index(self):
 		'''
@@ -207,3 +214,6 @@ class ArticleVector:
 		self.vector[9] = self.all_caps_index() # number of all caps words / number of total words
 		self.vector[10] = self.from_satire_source_index() # whether article is from satire news outlet.
 		self.vector[11] = self.exclamation_index() # number of exclamation points / number of total words
+		self.vector[12] = self.apa_index() # number of apa errors in an article
+def ap_checker(text):
+	
