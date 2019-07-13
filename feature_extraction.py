@@ -9,7 +9,7 @@ class ArticleVector:
 	'''
 	reputable_news_sources = open('reputable_news_sources.txt', 'r').read().split(' ')
 	satire_news_sources = open('satire_news_sources.txt', 'r').read().split(' ')
-	num_dimensions = 13 # changes as unique features are added
+	num_dimensions = 16 # changes as unique features are added
 
 	def __init__(self, url = "", text = ""):
 		self.vector = [0] * ArticleVector.num_dimensions 
@@ -145,7 +145,7 @@ class ArticleVector:
 		'''
 		returns 1 if 'opinion' or 'commentary' shows up in the url of an article
 		'''
-		if 'opinion' in self.url or 'commentary' in self.url:
+		if 'opinion' in self.url or 'commentary' in self.url or 'editorial' in self.url:
 			return 1
 		else:
 			return 0
@@ -198,6 +198,36 @@ class ArticleVector:
 				exclamation_index += 1
 		return exclamation_index / self.num_words
 
+	def name_source_index(self):
+		'''
+		return the number of proper nouns in the text / total words
+		'''
+		num_prop_nouns = 0
+		for pair in self.paired_tokens:
+			if pair[1] == 'NNP':
+				num_prop_nouns += 1
+		return num_prop_nouns / self.num_words
+
+	def interjection_index(self):
+		'''
+		return the number of interjections in the text / total words
+		'''
+		num_interjections = 0
+		for pair in self.paired_tokens:
+			if pair[1] == 'UH':
+				num_interjections += 1
+		return num_interjections / self.num_words
+
+	def you_index(self):
+		'''
+		return the number of times "you" shows up in the text / total words
+		'''
+		num_yous = 0
+		for word in self.text.split(' '):
+			if word == 'you':
+				num_yous += 1
+		return num_yous / self.num_words
+
 	def fill_vector(self):
 		'''
 		calls all the methods created to fill in the articlevector
@@ -215,5 +245,8 @@ class ArticleVector:
 		self.vector[10] = self.from_satire_source_index() # whether article is from satire news outlet.
 		self.vector[11] = self.exclamation_index() # number of exclamation points / number of total words
 		self.vector[12] = self.apa_index() # number of apa errors in an article
-def ap_checker(text):
+		self.vector[13] = self.name_source_index() # number of proper nouns in article / number of total words
+		self.vector[14] = self.interjection_index() # number of interjections in article / number of total words
+		self.vector[15] = self.you_index() # number of times you shows up in article / number of total words
+
 	
