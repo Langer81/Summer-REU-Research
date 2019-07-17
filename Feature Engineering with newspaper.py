@@ -85,6 +85,44 @@ satire_news_outlets = ['http://www.hillarybeattrump.org',
 						'http://nationalreport.net',
 						'https://www.newromantimes.com',
 						]
+polarized_news_outlets = ['http://allthatsfab.com/',
+						'https://www.alternet.org/',
+						'https://bluenationreview.com/',
+						'https://bluestatedaily.com/',
+						'https://www.breitbartunmasked.com/',
+						'https://www.codepink.org/',
+						'https://crooksandliars.com/',
+						'https://www.dailydemocrat.com/',
+						'https://www.dailykos.com/',
+						'http://www.tribunemedia.com/tag/washington-dc/',
+						'http://deepleftfield.info/',
+						'https://democracyguardian.com/',
+						'https://www.democraticunderground.com/',
+						'https://egbertowillies.com/',
+						'https://gopocalypse.net/',
+						'https://republicanssuck.org/',
+						'https://www.democratichub.com/',
+						'https://washingtonpress.com/',
+						'http://www.internationalviewpoint.org/',
+						'https://www.2ndvote.com/',
+						'https://abort73.com/',
+						'https://www.aim.org/',
+						'https://www.a1apac.org/',
+						'https://aclj.org/',
+						'https://www.axios.com/',
+						'https://www.bizpacreview.com/',
+						'https://www.christianheadlines.com/',
+						'https://conservativebase.com/',
+						'https://www.conservativedailynews.com/',
+						'http://www.conservativehq.com/',
+						'https://cowgernation.com/',
+						'https://www.dailysignal.com/',
+						'http://dcwhispers.com/',
+						'http://federalistpress.com/',
+						'https://www.dailywire.com/',
+						'https://ussanews.com/News1/',
+						]
+
 def get_opinion_links():
 	opinion_links = []
 	for outlet in real_news_outlets:
@@ -99,26 +137,7 @@ def get_opinion_links():
 				opinion_links.append(categories[i])
 	return opinion_links
 
-def get_news_links(broad_news_outlet_url):
-	article_links = []
-	try:
-		source = newspaper.build(broad_news_outlet_url)
-	except:
-		return []
-	for article in source.articles:
-		#if 'opinion' not in article.url and 'commentary' not in article.url:
-		article_links.append(article.url)
-	return article_links
 
-def write_news_links_to_file(links_list, write_file):
-	article_links = []
-	for url in links_list:
-		article_links.extend(get_news_links(url))
-		print('getting', url , 'data ...')
-	real_news_file  = open(write_file, 'w')
-	for url in article_links:
-		real_news_file.write(url + ' ')
-	real_news_file.close()
 
 
 def feature_extraction(file):
@@ -129,11 +148,6 @@ def feature_extraction(file):
 
 	
 #write_real_news_links_to_file(satire_news_outlets, 'satire_data.txt')
-def see_lengths(text_file):
-
-	text_file = open(text_file, 'r')
-	text = text_file.read().split(' ')
-	print('number of article links:', len(text))
 
 def write_to_file():
 	write_news_links_to_file(real_news_outlets, 'real_news_data.txt')
@@ -161,17 +175,41 @@ def read_fake_news_data_set(xl_file):
 		clean_fake_news_outlets.append(url)
 	write_news_links_to_file(clean_fake_news_outlets, 'fake_news_data.txt')
 	
-def has_duplicates(filename):
-	file = open(filename, 'r')
-	text = file.read().split(' ')
-	uniques = set()
-	num_dups = 0
-	for url in text:
-		i
-#write_to_file()
 
-see_lengths('opinion_data.txt')
+#write_to_file()
+#####################################################
+#######Import functions: ##########################
+###############################################
+def get_news_links(broad_news_outlet_url):
+	article_links = []
+	try:
+		source = newspaper.build(broad_news_outlet_url)
+	except:
+		return []
+	for article in source.articles:
+		#if 'opinion' not in article.url and 'commentary' not in article.url:
+		article_links.append(article.url)
+	return article_links
+
+def write_news_links_to_file(links_list, write_file):
+	article_links = []
+	for url in links_list:
+		article_links.extend(get_news_links(url))
+		print('getting', url , 'data ...')
+	real_news_file  = open(write_file, 'w')
+	for url in article_links:
+		real_news_file.write(url + ' ')
+	real_news_file.close()
+def see_lengths(text_file):
+
+	text_file = open(text_file, 'r')
+	text = text_file.read().split(' ')
+	print('number of article links:', len(text))
+
+#see_lengths('opinion_data.txt')
 #read_fake_news_data_set('fake_dataset.xlsx')
 #get_opinion_article_links()
 #opinion_links = get_opinion_links()
 #write_news_links_to_file(opinion_news_outlets, 'opinion_data.txt') 
+#write_news_links_to_file(polarized_news_outlets, 'polarized_news_urls')
+see_lengths('polarized_news_urls.txt')
