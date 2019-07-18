@@ -9,7 +9,7 @@ class ArticleVector:
 	'''
 	reputable_news_sources = open('reputable_news_sources.txt', 'r').read().split(' ')
 	satire_news_sources = open('satire_news_sources.txt', 'r').read().split(' ')
-	num_dimensions = 16 # changes as unique features are added
+	num_dimensions = 17 # changes as unique features are added
 
 	def __init__(self, url = "", text = ""):
 		self.vector = [0] * ArticleVector.num_dimensions 
@@ -112,6 +112,17 @@ class ArticleVector:
 			return 1
 		else:
 			return 0
+
+	def dot_gov_ending_index(self):
+		if self.url == "":
+			return None
+		period_index = ArticleVector.nth_index(self.url, '.', 2)
+		ending = self.url[period_index : period_index + 4]
+		if ending == ".gov":
+			return 1
+		else:
+			return 0
+
 	def apa_index(self):
 		'''
 		returns number of apa errors
@@ -248,5 +259,5 @@ class ArticleVector:
 		self.vector[13] = self.name_source_index() # number of proper nouns in article / number of total words
 		self.vector[14] = self.interjection_index() # number of interjections in article / number of total words
 		self.vector[15] = self.you_index() # number of times you shows up in article / number of total words
-
+		self.vector[16] = self.dot_gov_ending_index() # 1 if url ending is .gov, for persuasive information
 	
