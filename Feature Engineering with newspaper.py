@@ -175,6 +175,32 @@ def read_fake_news_data_set(xl_file):
 		clean_fake_news_outlets.append(url)
 	write_news_links_to_file(clean_fake_news_outlets, 'fake_news_data.txt')
 	
+def create_training_and_test_sets(text_file):
+	'''
+	take a file like 'fake_news_urls.txt' and turn it into a training and test file 80 : 20
+	'''
+	training_ratio = 0.8
+	print('hi')
+	file = open(text_file, 'r')
+	print(file)
+	links = file.read().split(' ')
+	#print(links)
+	file.close()
+	training_size = int(training_ratio * len(links))
+	print(text_file[0 : len(text_file) - 4]  + "-training.txt")
+	training_file = open(text_file[0 : len(text_file) - 4] + "-training.txt", 'w+')
+	print(training_file)
+	training_links = links[0 : training_size]
+	testing_links = links[training_size : len(links)]
+	for url in training_links:
+		print(url)
+		training_file.write(url + " ")
+	training_file.close()
+	testing_file = open(text_file[0 : len(text_file) - 4] + "-testing.txt", 'w+')
+	for url in testing_links:
+		print(url)
+		testing_file.write(url + " ")
+	testing_file.close()
 
 #write_to_file()
 #####################################################
@@ -206,10 +232,12 @@ def see_lengths(text_file):
 	text = text_file.read().split(' ')
 	print('number of article links:', len(text))
 
+
 #see_lengths('opinion_data.txt')
 #read_fake_news_data_set('fake_dataset.xlsx')
 #get_opinion_article_links()
 #opinion_links = get_opinion_links()
 #write_news_links_to_file(opinion_news_outlets, 'opinion_data.txt') 
 #write_news_links_to_file(polarized_news_outlets, 'polarized_news_urls')
-see_lengths('polarized_news_urls.txt')
+#see_lengths('polarized_news_urls.txt')
+create_training_and_test_sets('polarized_news_urls.txt')
