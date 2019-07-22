@@ -1,1 +1,920 @@
-cnn nytimes wsj usatoday cbsnews msn npr latimes theguardian washingtonpost yahoo theatlantic apnews bbc c-span economist propublica reuters pbs
+cnn 
+nytimes 
+wsj 
+usatoday
+cbsnews 
+msn 
+npr 
+latimes
+theguardian
+washingtonpost 
+yahoo 
+theatlantic 
+apnews 
+bbc 
+c-span 
+economist 
+propublica 
+reuters 
+pbs
+680 News
+38 North
+ABS-CBN News
+Adweek
+AFP (Agence France Presse)
+Africa News
+Agerpres
+Ahram Online
+Air Force Times
+Airwars
+Al Arabiya
+Al Bawaba
+Al Majalla
+Alabama Political Reporter
+Alabama Today
+Albany Democrat-Herald
+AllAfrica
+Ad Fontes Media (All Generalizations are False)
+Agenzia Nazionale Stampa Associata (ANSA)
+AllGov
+Alliance for Securing Democracy
+Amarillo Globe-News
+American Heritage
+American Military News
+American Press Institute
+Amnesty International
+Anthropocene Magazine (Formerly Conservation Magazine)
+APTN National News
+Arizona Capitol Times
+Army Times
+Ars Technica
+Asia News International (ANI)
+Asia Times
+Associated Press
+Atlantic Council
+Australian Financial Review
+Ballotpedia
+Bangkok Post
+Battlefords News-Optimist
+Bbarta24
+Belfer Center for Science and International Affairs
+Belleville News-Democrat
+Bellingcat
+Better Government Association
+BDNews24
+Big News Network
+Big Think
+Biloxi Sun Herald
+Bismarck Tribune
+Bleeping Computer
+BNO News
+Bozeman Daily Chronicle
+Bridge Magazine
+Brief.News
+Bulletin of the Atomic Scientists
+Bullshido
+Burnett County Sentinel
+Business 2 Community
+Canadian Public Affairs Channel (CPAC)
+Cape Cod Times
+Capitol Fax
+Carnegie Endowment for International Peace
+Casper Star-Tribune
+Castanet
+Center for Advanced Defense Studies
+Center for Democracy and Technology (CDT)
+Center for Global Development
+Center for Inquiry
+Center for a New American Security
+Center For Public Integrity
+Center For Responsive Politics
+Center For Strategic and International Studies
+China Global Television Network (CGTN)
+Chinook Observer
+Christian Science Monitor
+City and State New York
+Committee for Economic Development
+Committee for a Responsible Federal Budget
+Committee to Protect Journalists
+Concord Monitor
+Conflict News
+Congress.gov
+Congressional Budget Office (CBO)
+Consortium News
+Constitution Daily
+Constitution Project
+Consumerist
+Consumer Reports
+Cook Political Report
+Countable News
+Courthouse News Service
+CP24
+Crimeola
+C-SPAN
+CTV News
+Daily Business Review
+Daily Camera
+Daily Journal (Illinois)
+Daily Journal (Missouri)
+Daily Record
+Darien Times
+Dayton Daily News
+D.C. Circuit Breaker
+Defense News
+Defense One
+Del Rio News-Herald
+Denton Record-Chronicle
+Des Moines Register
+DifferenceBetween.net
+Digital Journal
+Doctors Without Borders
+DPA German Press Agency
+Eagle Tribune
+Earth Institute
+EJ Insight
+Elko Daily Free Press
+Erie Times-News
+ERR News (Estonia Public Broadcasting)
+Eurasia Group
+Eurasia Review
+Euronews
+Every CRS Report
+Factcheck.org
+FactsCan
+FactWire News Agency
+Fair Observer
+Federal News Radio
+Federal Times
+Financial Express
+Financial Times
+First Draft News
+Foreign Affairs
+Foreign Policy
+Free Wheel Media
+Full Fact (UK)
+Gallup
+Gears of Biz
+GBTimes
+Government Executive
+GovTrack
+Global Integrity
+Global Slavery Index
+Globe Gazette (Iowa)
+GoodNewsNetwork
+Great Falls Tribune
+Green Bay Press-Gazette
+Greenville News
+Harvard Business Review
+Harvard Gazette
+Harvard Political Review
+Hastings Tribune
+Healthcare Finance News
+Herald & Review (Illinois)
+Hoax Slayer
+Homeland Security News Wire
+How-to Geek
+I24 News
+ICitizen
+Idaho Statesman
+iMediaEthics
+Independent Record (Montana)
+Independent Voter Network (IVN)
+India Today
+Inland Valley Daily Bulletin
+Institute for Women’s Policy Research (IWPR)
+Investigative Reporters and Editors
+International Consortium of Investigative Journalists
+International Energy Agency
+International Organization
+International Press Institute
+International Rescue Committee
+Investopedia
+Jackson Sun
+Janes 360
+Japan Times
+Jewish Telegraphic Agency (JTA)
+Journal Standard
+JStor Daily
+Just Security
+Justice Denied
+Kaiser Family Foundation
+Knowhere
+Know Your Meme
+Knoxville News Sentinel
+Lansing State Journal
+Las Cruces Sun-News
+Lead Stories
+Le Devoir
+Lima Charlie News
+Lincoln Journal Star
+ListVerse
+Lompoc Record
+Longview News-Journal
+MakeUseOf
+Malaysia Today
+Maplight
+MediaShift
+Memeorandum
+Mental Floss
+MercoPress
+Merion West
+Metabunk
+MetroWest Daily News
+Military.com
+Missoulian
+MLive (Michigan – Booth Newspapers)
+Montana Standard
+Napa Valley Register
+National Bureau of Economic Research (NBER)
+National Conference of State Legislatures (NCSL)
+National Institute on Money in State Politics
+National Journal
+NationMaster
+New America Foundation
+New Bern Sun Journal
+News24 (South Africa)
+Newsela
+Newsguard
+News Lookup
+NewsNow (UK)
+NewzJunky.com
+New Zealand Herald
+Next Avenue
+NextGov
+NHK World
+Niskanen Center
+NK News
+Noozhawk
+Norfolk Daily News
+North Korea Times
+Northwest Indiana Times
+Novinite
+No Labels
+OneEighty
+Open the Government
+Oyez Project
+Pacific Daily News
+Patch
+Patheos
+Pensacola News Journal
+Peterson Foundation
+Peterson Institute for International Economics (PIIE)
+Pew Research
+Places Journal
+Pocono Record
+Political Storm
+Political Wire
+Politico
+Politifact
+Polygraph.info
+Poynter Institute
+PR Newswire
+ProCon.org
+Project on Government Oversight (POGO)
+Project Syndicate
+Public Policy Polling (PPP)
+Public Religion Research Institute (PRRI)
+PXW News
+Quad City Times
+Radio Free Europe / Radio Liberty
+RAND Corporation
+Rapid City Journal
+Recode
+Relevant Magazine
+Reporters Lab
+Reporters Without Borders
+Represent.us
+Reuters
+RiverBender.com
+Roll Call
+RTE (Radio Television of Ireland)
+Russian Media Monitor
+San Diego Union Tribune
+San Marcos Daily Record
+Santa Maria Times
+Sarasota Herald-Tribune
+Sayfie Review
+Science Debate
+Scoopnest
+SCOTUSblog
+Shareably
+Shorenstein Center
+Simple Politics
+Sioux City Journal
+Sky News
+SmartNews
+Snopes
+South Bend Tribune
+Southwest Times Record
+Spectrum News – NY1
+Spectrum Report
+St. Cloud Times
+Stars and Stripes
+STAT (News)
+Statesville Record & Landmark
+Statista
+Stimson Center
+Stock News USA
+StrategyPage
+Stratfor
+Sunlight Foundation
+Taipei Times
+Taiwan News
+Task and Purpose
+Telegram & Gazette
+Texas Standard
+Texas Tribune
+That’s Nonsense
+The Auburn Citizen
+The Balance
+The Baxter Bulletin
+The Bureau of Investigative Journalism
+The Canadian Press
+The China Post
+The Chronicle of Higher Education
+The Cipher Brief
+The Conversation
+The Daily Centrist
+The Day (New London)
+The Daily Gazette
+The Daily News (Longview)
+The Daily Northwestern
+The Daily Progress
+The Defcon Warning System
+The Diplomat Magazine
+The Economist
+The Fake News Codex
+The Herald-Dispatch (West Virginia)
+The Herald Journal
+The Herald News (Massachusetts)
+The Herald-Sun (Durham, North Carolina)
+The Humanist Magazine
+The Indian Express
+The Jakarta Post
+The Jordan Times
+The Journal Gazette & Times-Courier
+TheJournal.ie
+The Knife
+The Marshall Project
+The Meme Policeman
+The Middle East in London
+The Moderated Media
+The Modesto Bee
+The Morning Call
+The Nevada Independent
+The News (Mexico City)
+The News International
+The News Literacy Project
+The Observatory
+The Outlook (Monmouth University)
+The Pantagraph
+The Phnom Penh Post
+The Post and Courier
+The Post-Standard (Syracuse)
+The Post Star
+The Republican (Masslive.com)
+The Scotsman
+The Sentinel (Pennsylvania)
+The Skimm
+The Sociable
+The Southern Illinoisan
+The Star Democrat
+The Strategy Bridge
+The Swedish Wire
+The Times (Illinois)
+The Times and Democrat
+The TruthSetter
+The Whim
+TheWrap
+Third Way
+ThoughtCo
+Times-News (Idaho)
+Times of San Diego
+Today I Found Out
+Transparency International
+Transpartisan Review
+Traverse City Record-Eagle
+Tribune News Service
+Truth Be Told
+TruthOrFiction.com
+Turkey and Facts (Dogruluk Payi)
+TVW Washington State
+Undark
+United Press International (UPI)
+United States House of Representatives (House.gov)
+US Government Accountability Office (GAO)
+USAFacts
+USA Spending.gov
+Utah Standard-Examiner
+Vera Files
+Viral Thread
+Vocativ
+Voice of America
+Voice of San Diego
+Vos Iz Neias
+Vote Smart
+Waco Tribune-Herald
+War on the Rocks
+Washington Journal
+Washington’s Top News (WTOP)
+Waterloo-Cedar Falls Courier
+We Are The Mighty
+WikiNews
+Wikipedia
+WikiTribune
+Winona Daily News
+Winston-Salem Journal
+WION (World is One News)
+Wisconsin State Journal
+Woodrow Wilson International Center for Scholars
+World Economic Forum
+World News
+World Politics Review
+World Press Review
+World Resources Institute (WRI)
+WRAL
+The ZDF (Zweites Deutsches Fernsehen)
++972 Magazine
+ABC11 Eyewitness News
+ABC News
+ABC News Australia
+Above the Law
+Aeon
+Affinity Magazine
+African Arguments
+Al-Hayat
+Al Jazeera
+Al-Masdar News (AMN)
+Al Monitor
+Al-Sura
+Alan Guttmacher Institute
+Alaska Dispatch News
+Albany Times-Union
+Alberta Views
+Allied Progress
+Akron Beacon Journal
+AM New York
+America Magazine
+American Civil Liberties Union (ACLU)
+American Immigration Council
+Anniston Star
+Anti-Defamation League
+American Public Media (APR)
+AOL
+APM Reports
+Ara News
+Areo Magazine
+Arizona Daily Star
+Arizona Daily Sun
+Arkansas Times
+Asheville Citizen-Times
+Asia Sentinel
+Asian Correspondent
+Atavist Magazine
+Atlanta Black Star
+Atlanta Journal-Constitution
+(The)Atlantic
+Atlantic Media
+ATTN:
+Austin American-Statesman
+Axios
+BackChannel
+Balkan Insight
+Baltimore Sun
+Bangor Daily News
+Baptist News Global
+Battle Creek Enquirer
+BBC
+Beijing Review
+Berkeleyside
+Berkshire Eagle
+BillMoyers.com
+Bing News
+Birmingham Mail
+BlastingNews
+Bloomberg
+Bluestem Prairie
+Boston Globe
+Boy Genius Report (BGR)
+Brampton Guardian
+Brennan Center for Justice
+Brookings Institute
+Buffalo News
+Business Insider
+Bustle Magazine
+Buzzfeed
+Calgary Herald
+CalWatchdog.com
+Canadaland
+Capital Gazette
+Carolina Public Press
+Caribbean Life News
+CBC News
+CBS News
+CCTV America
+Center for Economic and Policy Research (CEPR)
+Center for International Policy
+Center for Popular Democracy
+Center on Budget and Policy Priorities
+Charleston Gazette-Mail
+Charlotte Observer
+Chattanooga Times Free Press
+Cheddar
+Chicago Reporter
+Chicago Sun Times
+Citizens for Legitimate Government
+Citizens for Responsibility and Ethics in Washington (CREW)
+Citizens for Tax Justice
+Citizen Truth
+Clean Technica
+CNBC
+Columbia Journalism Review (CJR)
+Columbia Reports
+Committee to Investigate Russia
+Common Cause
+Commonweal Magazine
+Commonwealth Fund
+Corporate Presidency
+Corpus Christi Caller-Times
+Council for the National Interest
+Credo Action
+Crosscut.com
+CT Mirror
+Daily Hampshire Gazette
+Daily Hive
+Daily Mirror
+Dawn
+DCReport.org
+Deadline Hollywood
+Deccan Herald
+Delaware Online – News Journal
+Democracy 21
+Democrat and Chronicle
+Demos
+Denver Post
+Denver Westword
+Detroit Free Press
+Die Zeit
+Digg
+Diply
+DiversityInc
+Dutch Daily News
+Dutch Review
+DW News (Deutsche Welle)
+EarthJustice
+East Bay Times
+Economic Policy Institute
+Econofact
+Economics.Help
+Edmonton Journal
+Egyptian Streets
+Electronic Frontier Foundation
+El Pais
+El Paso Times
+Emirates 24/7
+Empty Wheel
+Engadget
+Euractiv
+Euromaiden Press
+EU Observer
+Exposing the Truth
+Factbox.TV
+Fact/Myth
+Fairness & Accuracy in Reporting (FAIR)
+FairVote
+Fast Company
+Feminist Frequency
+Fight for the Future
+FiveThirtyEight
+Foreign Policy in Focus
+Fort Worth Weekly
+France24
+Freakonomics
+Free Press
+Fresno Bee
+Fusion
+Gay Star News
+Geopolitics Alert
+Greensboro News and Record
+Greentech Media
+Glamour Magazine
+Global Citizen
+Global News
+Global Post
+Global Risk Insights
+Global Times
+Google News
+Governing Magazine
+Grist
+Gun Violence Archive
+Harpers
+Hartford Courant
+Health Magazine
+HealthyWay
+Heavy.com
+Helsinki Times
+High Country News
+Highline
+Hindustan Times
+History News Network
+Hollywood Reporter
+Honolulu Star-Advertiser
+Houston Chronicle
+Human Rights Watch
+Humanium
+Hurriyet Daily News
+Ice News
+If Americans Knew
+Independent Australia
+Independent Media Center
+Indianapolis Star
+iNews
+Inquisitr
+InsideClimate News
+Inside Edition
+Inside Higher Ed
+Inside Philanthropy
+Institute for Middle East Understanding (IMEU)
+Institute on Taxation and Economic Policy (ITEP)
+International Business Times
+International Center for Research on Women
+International Crisis Group
+Inter Press Service (IPS)
+Inverse
+iPolitics
+IRIN News
+Jackson Free Press
+Jihadica
+Joint Center for Political and Economic Studies
+Journal of Politics and Society
+Kansas City Star
+Knight Foundation
+KMOV-St. Louis
+KOKO News 5
+Kotaku
+KUOW NPR
+Kurdistan 24
+Kyiv Post
+La Presse
+LA Times (Los Angeles Times)
+Latin Times
+Lawfare Blog
+Law Newz
+Left Justified
+Lethbridge Herald
+Lexington Herald Leader
+Liberal Mountain
+Lifehacker
+Liveleak
+Maclean’s Magazine
+Maine Beacon
+Mainichi Shimbun
+Malaysiakini
+McClatchyDC
+Mediafile
+Medium
+Metro
+Metro UK
+Mexico Daily News
+Miami HeraldMic
+Migration Policy Institute
+Milwaukee Journal-Sentinel
+Minneapolis Star Tribune
+Minnesota Public Radio (MPR)
+MinnPost
+Mint Press News
+Mongabay
+Monthly Review
+Montreal Gazette
+Morning Consult
+Moscow Times
+Mother Jones
+Mother Nature Network
+Mothership
+Mountain Democrat
+MSN
+Muncie Voice
+MWC News – Media with Conscience
+Naked Capitalism
+Naples Daily News
+National Association for the Advancement of Colored People (NAACP)
+National Center for Transgender Equality (NCTE)
+National Monitor
+National Newswatch (Canada)
+National Observer (Canada)
+National Youth Rights Association
+Natural Resources Defense Council
+Natural Resource Governance Institute
+Nature Conservancy
+NBC News
+NC Policy Watch
+NDTV
+Need 2 Know
+New England Cable News (NECN)
+News Channel 4 (KFOR.com)
+News.com.au
+Newsday
+News Deeply
+NewGru
+Newser
+NewsOne
+Newsy
+New Europe
+New Left Review
+New Matilda
+New Moderate
+New York Daily News
+News and Guts
+NPR
+New York Times
+OC Weekly
+Odyssey Online
+Oil and Water Don’t Mix
+openDemocracy
+Opposing Views
+OneIndia
+Orlando Sentinel
+Our World In Data
+Outside the Beltway
+Ozy Media
+Pacific Standard Magazine
+PanAm Post
+Patriotic Millionaires
+PBS News Hour
+Philadelphia Inquirer
+Philadelphia Tribune
+Philippine Daily Inquirer
+Phoenix New Times
+Political Critique
+Politics That Work
+Population Connection
+Portland Press-Herald
+Portland Tribune
+Positive News
+Press TV
+Propublica
+Prospect Magazine
+Providence Journal
+Public Citizen
+Public Radio International (PRI)
+Quartz
+Radio Free Asia
+Raleigh News & Observer
+RationalWiki
+Religion News Service
+Reno Gazette Journal
+Reveal – Center for Investigative Journalism
+Right Web
+Roanoke Times
+Roosevelt Institute
+Rudaw
+Sacramento Bee
+Salt Lake Tribune
+San Antonio Express-News
+San Diego Free Press
+San Diego Reader
+San Francisco Chronicle
+San Francisco Examiner
+San Francisco Globe
+San Jose Mercury News
+Santa Barbara Independent
+Santa Fe New Mexican
+Saudi Gazette
+Scoopwhoop
+Scroll.in
+Seattle Post-Intelligencer
+Seattle Times
+Sentencing Project
+SFGate
+Shame Project
+Sojourners (Soho)
+SooToday.com
+South China Morning Post
+Special Broadcasting Service (SBS)
+Spiegel Online
+Star-Ledger
+Staten Island Advance
+StepFeed
+St. Louis Post-Dispatch
+Stocks News Daily
+StopFake
+St. Paul Pioneer Press
+Stuff
+SWI – Swissinfo.ch
+Syrian Observatory for Human Rights (SOHR)
+Tablet Magazine
+Tax Justice Network
+Tax Policy Center
+TechCrunch
+Techdirt
+Texas Monthly
+The Sun Magazine
+Tampa Bay Times
+The Age (Australia)
+The Asahi Shimbun
+The Asbury Park Press
+The Automatic Earth
+The Baffler
+The Bipartisan Press
+The Brownsville Herald
+The Budapest Beacon
+The Century Foundation
+The Christian Left
+The Citizen (Australia)
+The Council of Canadians
+The Courier-Journal
+The Daily Climate
+The Daily Tarheel
+The Economic Times
+The European Council on Foreign Relations (ECFR)
+The Express-Times (Lehigh Valley, PA)
+The Fifth Column
+The Forward
+The Frontier
+The Guardian
+The Herald (Everett)
+The Hill
+The Hill Talk
+The Hindu
+The Independent
+The Interpreter (Magazine)
+The Irish Times
+The Irrawaddy
+The Jerusalem Report
+The Journal News
+The Korea Times
+The Local (Norway)
+The Moderate Voice
+The Monthly (Australia)
+The Nation Institute
+The New Arab
+The News-Times (Danbury)
+The News Tribune
+The New Tropic
+The Next Web (TNW)
+The Observer
+The Olympian
+The Oslo Times
+The Palm Beach Post
+The Patriot-News
+The Plain Dealer
+The Press Democrat
+The Pulse
+The Record (NJ)
+The Ringer
+The Saturday Paper
+The State
+The Stranger
+The Sun Magazine
+The Sydney Morning Herald
+The Tab
+The Trace
+The Tyee
+The Varsity
+The Verge
+The Virginian Pilot
+The Week UK
+The Wilderness Society
+The Wire – India
+The Zero Hour
+Thomson Reuters Foundation
+Thrillist
+Time
+Times-Colonist
+Times Headline
+Times of Israel
+Times-Picayune
+Timeline
+TomDispatch.com
+To Inform is to Influence
+Toronto Star
+UAWire
+Unicorn Riot
+United Federation of Teachers (UFT)
+University Business
+Urban Institute
+US News World Report
+USA Today
+Utah Public Radio (UPR)
+Vice News
+VoteVets.org
+Vulture
+Wall Street on Parade
+Washington Blade
+Washington Post
+WGN News
+WikiLeaks
+Windsor Star
+Wings Over Scotland
+Wired Magazine
+WNYC
+World Affairs Journal
+WorldCrunch
+World Policy Institute
+Xinhua News Agency
+Yahoo News
+YaleGlobal Online
+YnetNews
+York Daily Record
+York Dispatch
+Youth Radio

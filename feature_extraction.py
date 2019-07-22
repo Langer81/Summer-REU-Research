@@ -2,18 +2,73 @@ from newspaper import Article
 from goose3 import Goose
 import language_check
 import nltk
-import pyapa 
+import pyapa
+
 class ArticleVector:
 	'''
 	class whos purpose is to extract an article/urls vector for feature matrix
 	'''
-	reputable_news_sources = open('reputable_news_sources.txt', 'r').read().split(' ')
-	satire_news_sources = open('satire_news_sources.txt', 'r').read().split(' ')
-	num_dimensions = 17 # changes as unique features are added
+	NUM_DIMENSIONS = 17 # changes as unique features are added
+
+	##### CLASS ATTRIBUTES #####
+
+	reputable_news_sources = open('reputable_news_sources.txt', 'r').readlines()
+	for i in range(len(reputable_news_sources)):
+		reputable_news_sources[i] = reputable_news_sources[i].replace(" ", "").lower()
+
+	satire_news_sources = open('satire_news_sources.txt', 'r').readlines()
+	for i in range(len(satire_news_sources)):
+		satire_news_sources[i] = satire_news_sources[i].replace(" ", "").lower()
+	
+	unreputable_news_sources = open('unreputable_news_sources.txt', 'r').readlines()
+	for i in range(len(unreputable_news_sources)):
+		unreputable_news_sources[i] = unreputable_news_sources[i].replace(" ", "").lower()
+
+	def word_contains(string1, string2):
+		'''
+		return true if string1 is inside string2 as long as the order fixed.
+		ex: word_contains('wsj', 'wallstreetjournal')  -> True
+		ex: word_contains('nytimes', 'thenewyorktimes') -> True
+		ex: word_contains('wsj', 'journalstreetwall') -> False
+		'''
+		if string1 == '' and string2 != '':
+			return True
+		elif string1 != '' and string2 == '':
+			return False
+		elif string1 == '' and string2 == '':
+			return True
+		else:
+			string1_first = string1[0]
+			string2_first = string2[0]
+			if string1_first == string2_first:
+				return ArticleVector.word_contains(string1[1:], string2[1:])
+			else:
+				return ArticleVector.word_contains(string1, string2[1:])
+
+	def nth_index(string, char, n, index = 0):
+		'''
+		return the index of the nth occurence of a character in a string
+		string - string of interest
+		char - char we're finding the index of 
+		n - nth occurence of char
+		index - index of char
+		'''
+		if n == 0:
+			return index - 1
+		elif string == "":
+			raise Exception('Substring not found bro')
+		elif string[0] == char:
+			return ArticleVector.nth_index(string[1:], char, n - 1, index + 1)
+		elif string[0] != char:
+			return ArticleVector.nth_index(string[1:], char, n, index + 1)
+
+
+	##### INSTANCE ATTRIBUTES #####
 
 	def __init__(self, url = "", text = ""):
-		self.vector = [0] * ArticleVector.num_dimensions 
+		self.vector = [0] * ArticleVector.NUM_DIMENSIONS 
 		self.url = url
+		self.cleaned_url = clean_url()
 		if text == "" and url != "": # user enters url
 			article = self.extract_article()
 			self.title = article.title
@@ -28,7 +83,25 @@ class ArticleVector:
 	def validate(self):
 		if self.text == '':
 			raise Exception('The text for this article is empty.')
-	
+
+	def clean_url(self):
+		'''
+		ex: clean_url('https://www.nytimes.com/ijaw;efoija;wdlfkja;weifj') -> 'nytimes'
+		'''
+		if 'www' in self.url:
+			first_period = self.url.index('.')
+			second_period = ArticleVector.nth_index(self.url, '.', 2)
+			return self.url[first_period + 1 : second_period]
+		else:
+			try:
+				first_period = self.url.index('.')
+				second_period = ArticleVector.nth_index(self.url, '.', 2)
+				return self.url[first_period + 1 : second_period]
+			except:
+				second_slash = ArticleVector.nth_index(self.url, '/', 2)
+				first_period = self.url.index('.')
+				return self.url[second_slash + 1 : first_period]
+
 	def grammar_index(self):
 		'''
 		returns the number of grammar mistakes of the article divided by the length of the article
@@ -82,22 +155,7 @@ class ArticleVector:
 				present_index += 1
 		return present_index / self.num_words
 
-	def nth_index(string, char, n, index = 0):
-		'''
-		return the index of the nth occurence of a character in a string
-		string - string of interest
-		char - char we're finding the index of 
-		n - nth occurence of char
-		index - index of char
-		'''
-		if n == 0:
-			return index - 1
-		elif string == "":
-			raise Exception('Substring not found bro')
-		elif string[0] == char:
-			return ArticleVector.nth_index(string[1:], char, n - 1, index + 1)
-		elif string[0] != char:
-			return ArticleVector.nth_index(string[1:], char, n, index + 1)
+	
 
 	def url_ending_index(self):
 		'''
@@ -168,7 +226,7 @@ class ArticleVector:
 		#print(ArticleVector.reputable_news_sources)
 		for source in ArticleVector.reputable_news_sources:
 			#print(source)
-			if source in self.url:
+			if self.clean_url in source:
 				return 1
 		return 0
 
@@ -189,12 +247,8 @@ class ArticleVector:
 		'''
 		returns 1 if link is from satire news source
 		'''
-		first_period_index = self.url.index('.')
-		second_period_index = ArticleVector.nth_index(self.url, '.', 2)
-		source = self.url[first_period_index + 1 : second_period_index]
-
-		for outlet in ArticleVector.satire_news_sources:
-			if outlet in source:
+		for source in ArticleVector.satire_news_sources:
+			if self.clean_url in source:
 				return 1
 		return 0
 
@@ -260,4 +314,5 @@ class ArticleVector:
 		self.vector[14] = self.interjection_index() # number of interjections in article / number of total words
 		self.vector[15] = self.you_index() # number of times you shows up in article / number of total words
 		self.vector[16] = self.dot_gov_ending_index() # 1 if url ending is .gov, for persuasive information
-	
+
+

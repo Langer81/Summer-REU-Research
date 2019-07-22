@@ -7,6 +7,7 @@ real_news_outlets = real_news.read().split(' ')
 satire_news = open('satire_news_sources.txt', 'r')
 satire_news_outlets = satire_news.read().split(' ')
 
+
 def get_opinion_article_links():
 	opinion_links = []
 	for outlet in real_news_outlets:
@@ -66,6 +67,10 @@ def write_to_file():
 	write_news_links_to_file(real_news_outlets, 'real_news_data.txt')
 	write_news_links_to_file(satire_news_outlets, 'satire_data.txt')
 
+
+
+
+####### One time uses #########
 def read_fake_news_data_set(xl_file):
 	'''
 	meant to be used only for the excel sheet in the directory doesn't make sense otherwise
@@ -97,9 +102,25 @@ def remove_extras():
 		url_string += ' ' + url[first_period + 1 : second_period]
 	file.write(url_string)
 
+def get_urls():
+	satire_file = open('satire_news_sources.txt', 'r')
+	satire = satire_file.readlines()
+	for i in range(len(satire)):
+		try:
+			first_paran = satire[i].index('(')
+			second_paran = satire[i].index(')')
+			satire[i] = satire[i][first_paran + 1 : second_paran]
+		except:
+			continue
+	satire_file.close()
+	file = open('satire_news_sources.txt','w')
+	for source in satire:
+		print(type(source))
+		file.write(source + '\n')
+
 #write_to_file()
 
 #see_lengths()
 #read_fake_news_data_set('fake_dataset.xlsx')
 #get_opinion_article_links()
-remove_extras()
+get_urls()
