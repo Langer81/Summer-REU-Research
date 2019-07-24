@@ -30,28 +30,29 @@ class StyleChecker:
 		first_word = StyleChecker.clean_word(word_list[0])
 		#print(word_list)
 		def num_less_than_9(word):
+			nonlocal errors
 			try:
-
 				num = int(word)
-				#print('hellop')
 				if num <= 9:
-					
 					errors += 1
+				return
 			except:
-				return 0
-			return 0
+				return
+			
 
 		def first_word_is_numeral(word):
+			nonlocal errors
 			try:
 				num = int(word)
 				if "year" not in word_list:
 					errors += 1
+				return
 			except:
-				return 0
-			return 0
+				return 
+			 
 		first_word_is_numeral(first_word)
-		for word in word_list[1:]: #exclude the first word
-			print(word)
+		for word in word_list: #exclude the first word
+			#print(word)
 			cleaned_word = StyleChecker.clean_word(word) 
 			num_less_than_9(cleaned_word)
 		return errors
