@@ -16,15 +16,15 @@ class ArticleVector:
 
 	reputable_news_sources = open('reputable_news_sources.txt', 'r').readlines()
 	for i in range(len(reputable_news_sources)):
-		reputable_news_sources[i] = reputable_news_sources[i].replace(" ", "").lower()
+		reputable_news_sources[i] = reputable_news_sources[i].replace(" ", "").lower().strip()
 
 	satire_news_sources = open('satire_news_sources.txt', 'r').readlines()
 	for i in range(len(satire_news_sources)):
-		satire_news_sources[i] = satire_news_sources[i].replace(" ", "").lower()
+		satire_news_sources[i] = satire_news_sources[i].replace(" ", "").lower().strip()
 	
 	unreputable_news_sources = open('unreputable_news_sources.txt', 'r').readlines()
 	for i in range(len(unreputable_news_sources)):
-		unreputable_news_sources[i] = unreputable_news_sources[i].replace(" ", "").lower()
+		unreputable_news_sources[i] = unreputable_news_sources[i].replace(" ", "").lower().strip()
 
 	def word_contains(string1, string2):
 		'''
@@ -229,7 +229,8 @@ class ArticleVector:
 		#print(ArticleVector.reputable_news_sources)
 		for source in ArticleVector.reputable_news_sources:
 			#print(source)
-			if source in self.url:
+			if source in self.cleaned_url:
+				print(source)
 				return 1
 		return 0
 
@@ -238,7 +239,7 @@ class ArticleVector:
 		return the number of words in all caps in the title and body divided by the total number of words
 		'''
 		caps_index = 0
-		for word in self.title:
+		for word in self.title.split(' '):
 			if word.isupper():
 				caps_index += 1
 		for word in self.text.split(' '):
