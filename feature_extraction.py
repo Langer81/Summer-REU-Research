@@ -2,13 +2,15 @@ from newspaper import Article
 from goose3 import Goose
 import language_check
 import nltk
-import pyapa
+from pyapa import pyapa
+from ap_style_checker import StyleChecker
+from selenium import webdriver
 
 class ArticleVector:
 	'''
 	class whos purpose is to extract an article/urls vector for feature matrix
 	'''
-	NUM_DIMENSIONS = 17 # changes as unique features are added
+	NUM_DIMENSIONS = 19 # changes as unique features are added
 
 	##### CLASS ATTRIBUTES #####
 
@@ -68,7 +70,7 @@ class ArticleVector:
 	def __init__(self, url = "", text = ""):
 		self.vector = [0] * ArticleVector.NUM_DIMENSIONS 
 		self.url = url
-		self.cleaned_url = clean_url()
+		self.cleaned_url = self.clean_url()
 		if text == "" and url != "": # user enters url
 			article = self.extract_article()
 			self.title = article.title
@@ -111,6 +113,7 @@ class ArticleVector:
 		matches = checker.check(self.text) # of typos. 
 		return len(matches) / self.num_words
 		#return 0
+
 	def extract_article(self):
 		'''
 		returns a goose article object
@@ -226,7 +229,7 @@ class ArticleVector:
 		#print(ArticleVector.reputable_news_sources)
 		for source in ArticleVector.reputable_news_sources:
 			#print(source)
-			if self.clean_url in source:
+			if source in self.url:
 				return 1
 		return 0
 
@@ -248,7 +251,14 @@ class ArticleVector:
 		returns 1 if link is from satire news source
 		'''
 		for source in ArticleVector.satire_news_sources:
-			if self.clean_url in source:
+			if self.cleaned_url in source: # only different because satire is full link 
+				return 1
+		return 0
+
+	def from_unreputable_source_index(self):
+		for source in ArticleVector.unreputable_news_sources:
+			#print(source)
+			if source in self.url:
 				return 1
 		return 0
 
@@ -293,9 +303,14 @@ class ArticleVector:
 				num_yous += 1
 		return num_yous / self.num_words
 
+	def ap_style_index(self):
+
+		checker = StyleChecker(self.text, self.title)
+		return checker.total_errors
+
 	def fill_vector(self):
 		'''
-		calls all the methods created to fill in the articlevector
+		calls all the methods created to fill in self.vector
 		'''
 		self.vector[0] = self.url_ending_index() # reputable url ending feature 
 		self.vector[1] = self.from_reputable_source_index() # reputable news source feature 
@@ -314,5 +329,5 @@ class ArticleVector:
 		self.vector[14] = self.interjection_index() # number of interjections in article / number of total words
 		self.vector[15] = self.you_index() # number of times you shows up in article / number of total words
 		self.vector[16] = self.dot_gov_ending_index() # 1 if url ending is .gov, for persuasive information
-
-
+		self.vector[17] = self.from_unreputable_source_index() # 1 if article is from unreputable source
+		self.vector[18] = self.ap_style_index() # number of ap style violations

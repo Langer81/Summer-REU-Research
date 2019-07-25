@@ -102,25 +102,28 @@ def remove_extras():
 		url_string += ' ' + url[first_period + 1 : second_period]
 	file.write(url_string)
 
-def get_urls():
-	satire_file = open('satire_news_sources.txt', 'r')
-	satire = satire_file.readlines()
-	for i in range(len(satire)):
+def get_urls(file):
+	'''
+	finds the url from a copy pasted list from media bias dot com
+	'''
+	filename = open(file, 'r')
+	news_in_question = filename.readlines()
+	for i in range(len(news_in_question)):
 		try:
-			first_paran = satire[i].index('(')
-			second_paran = satire[i].index(')')
-			satire[i] = satire[i][first_paran + 1 : second_paran]
+			first_paran = news_in_question[i].index('(')
+			second_paran = news_in_question[i].index(')')
+			news_in_question[i] = news_in_question[i][first_paran + 1 : second_paran]
 		except:
 			continue
-	satire_file.close()
-	file = open('satire_news_sources.txt','w')
-	for source in satire:
+	filename.close()
+	new_file = open(file,'w')
+	for source in news_in_question:
 		print(type(source))
-		file.write(source + '\n')
+		new_file.write(source + '\n')
 
 #write_to_file()
 
 #see_lengths()
 #read_fake_news_data_set('fake_dataset.xlsx')
 #get_opinion_article_links()
-get_urls()
+get_urls('satire_news_sources.txt')
