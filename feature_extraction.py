@@ -230,7 +230,6 @@ class ArticleVector:
 		for source in ArticleVector.reputable_news_sources:
 			#print(source)
 			if source in self.cleaned_url:
-				print(source)
 				return 1
 		return 0
 
