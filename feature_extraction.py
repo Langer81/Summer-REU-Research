@@ -4,7 +4,6 @@ import language_check
 import nltk
 from pyapa import pyapa
 from ap_style_checker import StyleChecker
-from selenium import webdriver
 
 class ArticleVector:
 	'''
