@@ -204,7 +204,7 @@ def create_training_and_test_sets(text_file):
 
 #write_to_file()
 #####################################################
-#######Import functions: ##########################
+#######Important functions: #########################
 ###############################################
 def get_news_links(broad_news_outlet_url):
 	article_links = []
