@@ -18,7 +18,7 @@ def extract_data(filename, label):
 	count = 0
 	for url in data:
 		count += 1
-		print('Current filename:', filename, '|| Visited', count, 'websites...')
+		print('Current url:', url , '|| Visited', count, 'websites...')
 		try:
 			data_X.append(ArticleVector(url).vector)
 		except:
