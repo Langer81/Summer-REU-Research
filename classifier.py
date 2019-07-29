@@ -15,7 +15,10 @@ testing69_dict = {'testing69.txt' : 69}
 def extract_data(filename, label):
 	data = extract_urls(filename)
 	data_X = []
+	count = 0
 	for url in data:
+		count += 1
+		print('Current filename:', filename, '|| Visited', count, 'websites...')
 		try:
 			data_X.append(ArticleVector(url).vector)
 		except:
@@ -59,10 +62,8 @@ def prepare_data(file_dict):
 	
 	feature_matrices = [] #List of feature vectors
 	feature_labels = []
-	count = 0
 	for filename in file_dict:
-		count += 1
-		print('Current filename:', filename, '|| Visited', count, 'websites...')
+
 		#time.sleep(sleep_time)
 		xy_data = extract_data(filename, file_dict[filename])
 		feature_matrices += xy_data[0]
