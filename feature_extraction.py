@@ -9,7 +9,7 @@ class ArticleVector:
 	'''
 	class whos purpose is to extract an article/urls vector for feature matrix
 	'''
-	NUM_DIMENSIONS = 19 # changes as unique features are added
+	NUM_DIMENSIONS = 18 # changes as unique features are added
 
 	##### CLASS ATTRIBUTES #####
 
@@ -329,4 +329,4 @@ class ArticleVector:
 		self.vector[15] = self.you_index() # number of times you shows up in article / number of total words
 		self.vector[16] = self.dot_gov_ending_index() # 1 if url ending is .gov, for persuasive information
 		self.vector[17] = self.from_unreputable_source_index() # 1 if article is from unreputable source
-		self.vector[18] = self.ap_style_index() # number of ap style violations
+		#self.vector[18] = self.ap_style_index() # number of ap style violations

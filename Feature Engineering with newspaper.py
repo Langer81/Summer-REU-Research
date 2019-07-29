@@ -226,6 +226,7 @@ def write_news_links_to_file(links_list, write_file):
 	for url in article_links:
 		real_news_file.write(url + ' ')
 	real_news_file.close()
+	
 def see_lengths(text_file):
 
 	text_file = open(text_file, 'r')

@@ -1,11 +1,21 @@
+import nltk
+
 class StyleChecker:
 	def __init__(self, text, title):
 		self.title = title.split(' ')
+		self.text = text
 		self.text_sentences = text.split('.')
 		self.clean_list()
 		self.total_errors = 0
 		self.number_errors = 0
+		self.punctuation_errors = 0
 		self.scan()
+
+	def tokenize(string):
+
+		tokens = nltk.word_tokenize(string)
+		classified_tokens = nltk.pos_tag(tokens)
+		return classified_tokens
 
 	def clean_word(word):
 		'''
@@ -56,11 +66,28 @@ class StyleChecker:
 			cleaned_word = StyleChecker.clean_word(word) 
 			num_less_than_9(cleaned_word)
 		return errors
-			
+	
+	def punctuation(self, sentence):
+		errors = 0
+		word_list = sentence.split(' ')
+		tagged_tokens = StyleChecker.tokenize(sentence)
 
+		def capital_after_colon():
+			nonlocal errors
+			for i in range(len(sentence)):
+				if sentence[i] == ':':
+					next_letter = ''
+					for j in range(i, len(sentence)): # will error if colon is at the end of sentence
+						if sentence[j].isalpha():
+							next_letter = sentence[j]
+					if not next_letter.isupper():
+						errors += 1
 
+		capital_after_colon()
+		return errors
+		
 	def scan(self):
 		for sentence in self.text_sentences:
 			self.number_errors += self.numbers(sentence)
-
-		self.total_errors = self.number_errors
+			self.punctuation_errors += self.punctuation(sentence)
+		self.total_errors = self.number_errors + self.abbrevation_errors

@@ -2,54 +2,41 @@ import sklearn
 from feature_extraction import ArticleVector
 
 #Following is somewhat unnecessary, but may be useful if we ever separate the data.
-def prepare_data():
-	
-	real_news_train_data = extract_urls('real_news_urls-training.txt')
-	real_news_train_data_X = [ArticleVector(url).vector for url in real_news_train_data]
-	real_news_train_data_Y = [1] * len(real_news_train_data_X)
 
-	real_news_test_data = extract_urls('real_news_urls-testing.txt')
-	real_news_test_data_X = [ArticleVector(url).vector for url in real_news_test_data]
-	real_news_test_data_Y = [1] * len(real_news_test_data_X)
+#each filename should be a file containing article urls separated by spaces.
+training_file_dict = {'real_news_urls-training.txt' : 1,'fake_news_urls-training.txt' : 2,'opinion_urls-training.txt' : 3,
+					'polarized_news_urls-training.txt' : 5,'satire_urls-training.txt' : 7}
+testing_file_dict = {'real_news_urls-testing.txt' : 1,'fake_news_urls-testing.txt' : 2,'opinion_urls-testing.txt' : 3,
+					'polarized_news_urls-testing.txt' : 5,'satire_urls-testing.txt' : 7}
+testing69_dict = {'testing69.txt' : 69}
+def extract_data(filename, label):
+	data = extract_urls(filename)
+	data_X = []
+	for url in data:
+		try:
+			data_X.append(ArticleVector(url).vector)
+		except:
+			continue
+	data_Y = [label] * len(data_X)
+	return data_X, data_Y #list of lists, list
 
-	fake_news_train_data = extract_urls('fake_news_urls-training.txt')
-	fake_news_train_data_X =  [ArticleVector(url).vector for url in fake_news_train_data]
-	fake_news_train_data_Y = [2] * len(fake_news_train_data_X)
 
-	fake_news_test_data = extract_urls('fake_news_urls-testing.txt')
-	fake_news_test_data_X =  [ArticleVector(url).vector for url in fake_news_test_data]
-	fake_news_test_data_Y = [2] * len(fake_news_data_test_X)
+def write_feature_matrix_to_file(matrix, labels, write_file):
+	'''
+	matrix - list of lists
+	labels - list of ints
+	write_file - string
+	'''
 
-	opinion_train_data = extract_urls('opinion_urls-training.txt')
-	opinion_train_X = [ArticleVector(url).vector for url in opinion_train_data]
-	opinion_train_Y = [3] * len(opinion_train_X)
-
-	opinion_test_data = extract_urls('opinion_urls-testing.txt')
-	opinion_test_X = [ArticleVector(url).vector for url in opinion_test_data]
-	opinion_test_Y = [3] * len(opinion_test_X)
-
-	polarized_train_data = extract_urls('polarized_news_urls-training.txt')
-	polarized_train_X =  [ArticleVector(url).vector for url in polarized_data]
-	polarized_train_Y = [5] * len(polarized_X)
-
-	polarized_test_data = extract_urls('polarized_news_urls-testing.txt')
-	polarized_test_X =  [ArticleVector(url).vector for url in polarized_test_data]
-	polarized_test_Y = [5] * len(polarized_test_X)
-
-	satire_train_data = extract_urls('satire_urls-training.txt')
-	satire_train_X =  [ArticleVector(url).vector for url in satire_train_data]
-	satire_train_Y = [7] * len(satire_train_X)
-
-	satire_test_data = extract_urls('satire_urls-testing.txt')
-	satire_test_X =  [ArticleVector(url).vector for url in satire_test_data]
-	satire_test_Y = [7] * len(satire_test_X)
-
-	complete_train_X = real_news_train_data_X + fake_news_train_data_X + opinion_train_X + polarized_train_X + satire_train_X
-	complete_train_Y = real_news_train_data_Y + fake_news_train_data_Y + opinion_train_Y + polarized_train_Y + satire_train_Y
-
-	complete_test_X = real_news_test_data_X + fake_news_test_data_X + opinion_test_X + polarized_test_X + satire_test_X
-	complete_test_Y = real_news_test_data_Y + fake_news_test_data_Y + opinion_test_Y + polarized_test_Y + satire_test_Y
-
+	file = open(write_file, 'w')
+	assert len(matrix) == len(labels), 'len of list of feature matrices != len of list of labels'
+	for i in range(len(matrix)):
+		matrix[i].append(labels[i])
+	for vector in matrix:
+		for element in vector:
+			file.write(str(element))
+		file.write('\n')
+write_feature_matrix_to_file([[1,2,3],[4,5,6],[7,8,9]], [67, 68, 69], 'testing69.txt')
 def extract_urls(filename):
 	'''
 	takes a filename.txt with urls separated by spaces.
@@ -58,8 +45,35 @@ def extract_urls(filename):
 	urls = file.read().split(' ')
 	return urls
 
-support_vector_machine = sklearn.svm.SVC(gamma = 'scale')
-support_vector_machine.fit(complete_X, complete_Y)
+def prepare_data(file_dict):
+	'''
+	input : dictionary with string-filename keys, and int - label values
+	returns : list of lists (x feature matrix), list of labels (ints)
+
+	-basically returns complete_X and complete_Y
+	'''
+	
+	feature_matrices = [] #List of feature vectors
+	feature_labels = []
+	for filename in file_dict:
+		xy_data = extract_data(filename, file_dict[filename])
+		feature_matrices += xy_data[0]
+		feature_labels += xy_data[1]
+	return feature_matrices, feature_labels
+
+'''
+training_data = prepare_data(training_file_dict)
+testing_data = prepare_data(testing_file_dict)
+training_data_X = training_data[0]
+training_data_Y = training_data[1]
+testing_data_X = testing_data[0]
+testing_data_Y = testing_data[1]
+write_feature_matrix_to_file(train)
+'''
+
+
+#support_vector_machine = sklearn.svm.SVC(gamma = 'scale')
+#support_vector_machine.fit(complete_X, complete_Y)
 
 def validate(model, X, Y):
 	'''
@@ -79,3 +93,4 @@ def validate(model, X, Y):
 	percent_correct = (correct / total) * 100
 	print('This model got', str(percent_correct) + 'percent correct ||', str(correct), 'correct out of ', str(total))
 	return percent_correct
+
