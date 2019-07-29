@@ -16,12 +16,13 @@ def extract_data(filename, label):
 	data = extract_urls(filename)
 	data_X = []
 	count = 0
-	for url in data:
+	for url in data[:100]:
 		count += 1
 		print('Current url:', url , '|| Visited', count, 'websites...')
 		try:
 			data_X.append(ArticleVector(url).vector)
 		except:
+			print('IT FAILED')
 			continue
 	data_Y = [label] * len(data_X)
 	return data_X, data_Y #list of lists, list
@@ -34,7 +35,6 @@ def write_feature_matrix_to_file(matrix, labels, write_file):
 	labels - list of ints
 	write_file - string
 	'''
-
 	file = open(write_file, 'w')
 	assert len(matrix) == len(labels), 'len of list of feature matrices != len of list of labels'
 	for i in range(len(matrix)):
