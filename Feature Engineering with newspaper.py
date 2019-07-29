@@ -226,7 +226,7 @@ def write_news_links_to_file(links_list, write_file):
 	for url in article_links:
 		real_news_file.write(url + ' ')
 	real_news_file.close()
-	
+
 def see_lengths(text_file):
 
 	text_file = open(text_file, 'r')
@@ -241,4 +241,5 @@ def see_lengths(text_file):
 #write_news_links_to_file(opinion_news_outlets, 'opinion_data.txt') 
 #write_news_links_to_file(polarized_news_outlets, 'polarized_news_urls')
 #see_lengths('polarized_news_urls.txt')
-create_training_and_test_sets('polarized_news_urls.txt')
+#create_training_and_test_sets('polarized_news_urls.txt')
+print(see_lengths('real_news_urls-training.txt'))

@@ -1,10 +1,13 @@
 import sklearn
 from feature_extraction import ArticleVector
+import time
+import random
 
 #Following is somewhat unnecessary, but may be useful if we ever separate the data.
 
 #each filename should be a file containing article urls separated by spaces.
-training_file_dict = {'real_news_urls-training.txt' : 1,'fake_news_urls-training.txt' : 2,'opinion_urls-training.txt' : 3,
+training_file_dict = {'real_news_urls-training.txt' : 1}
+training_file_dict2 = {'fake_news_urls-training.txt' : 2,'opinion_urls-training.txt' : 3,
 					'polarized_news_urls-training.txt' : 5,'satire_urls-training.txt' : 7}
 testing_file_dict = {'real_news_urls-testing.txt' : 1,'fake_news_urls-testing.txt' : 2,'opinion_urls-testing.txt' : 3,
 					'polarized_news_urls-testing.txt' : 5,'satire_urls-testing.txt' : 7}
@@ -22,6 +25,7 @@ def extract_data(filename, label):
 
 
 def write_feature_matrix_to_file(matrix, labels, write_file):
+	### WILL NOT WORK WITH TWO DIGIT LABELS CARE CARE CARE
 	'''
 	matrix - list of lists
 	labels - list of ints
@@ -34,9 +38,9 @@ def write_feature_matrix_to_file(matrix, labels, write_file):
 		matrix[i].append(labels[i])
 	for vector in matrix:
 		for element in vector:
-			file.write(str(element))
+			file.write(str(element) + ' ')
 		file.write('\n')
-write_feature_matrix_to_file([[1,2,3],[4,5,6],[7,8,9]], [67, 68, 69], 'testing69.txt')
+#write_feature_matrix_to_file([[1,2,3],[4,5,6],[7,8,9]], [67, 68, 69], 'testing69.txt')
 def extract_urls(filename):
 	'''
 	takes a filename.txt with urls separated by spaces.
@@ -55,21 +59,26 @@ def prepare_data(file_dict):
 	
 	feature_matrices = [] #List of feature vectors
 	feature_labels = []
+	count = 0
 	for filename in file_dict:
+		count += 1
+		print('Current filename:', filename, '|| Visited', count, 'websites...')
+		#time.sleep(sleep_time)
 		xy_data = extract_data(filename, file_dict[filename])
 		feature_matrices += xy_data[0]
 		feature_labels += xy_data[1]
+
 	return feature_matrices, feature_labels
 
-'''
+
 training_data = prepare_data(training_file_dict)
-testing_data = prepare_data(testing_file_dict)
+#testing_data = prepare_data(testing_file_dict)
 training_data_X = training_data[0]
 training_data_Y = training_data[1]
-testing_data_X = testing_data[0]
-testing_data_Y = testing_data[1]
-write_feature_matrix_to_file(train)
-'''
+#testing_data_X = testing_data[0]
+#testing_data_Y = testing_data[1]
+write_feature_matrix_to_file(training_data_X, training_data_Y, 'real_news_vectors.txt')
+
 
 
 #support_vector_machine = sklearn.svm.SVC(gamma = 'scale')
