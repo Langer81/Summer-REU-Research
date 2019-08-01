@@ -57,18 +57,24 @@ class ArticleVector:
 		if n == 0:
 			return index - 1
 		elif string == "":
-			raise Exception('Substring not found bro')
+			raise Exception('Substring not foundbro')
 		elif string[0] == char:
 			return ArticleVector.nth_index(string[1:], char, n - 1, index + 1)
 		elif string[0] != char:
 			return ArticleVector.nth_index(string[1:], char, n, index + 1)
 
-
+	def num_periods_in_url(url):
+		period_count = 0
+		for letter in url:
+			if letter == '.':
+				period_count += 1
+		return period_count
 	##### INSTANCE ATTRIBUTES #####
 
 	def __init__(self, url = "", text = ""):
 		self.vector = [0] * ArticleVector.NUM_DIMENSIONS 
 		self.url = url
+		self.num_periods = ArticleVector.num_periods_in_url(self.url)
 		self.cleaned_url = self.clean_url()
 		if text == "" and url != "": # user enters url
 			article = self.extract_article()
@@ -78,6 +84,7 @@ class ArticleVector:
 			self.text = text
 		self.num_words = len(self.text.split(' '))
 		self.paired_tokens = self.tokenize() #list of tuples ex. [('helped', 'VBD')]
+		
 		self.validate()
 		self.fill_vector()
 
@@ -89,20 +96,15 @@ class ArticleVector:
 		'''
 		ex: clean_url('https://www.nytimes.com/ijaw;efoija;wdlfkja;weifj') -> 'nytimes'
 		'''
-		if 'www' in self.url:
-			first_period = self.url.index('.')
+		if self.num_periods == 1:
+			period_index = ArticleVector.nth_index(self.url, '.', 1)
+			slash_index = ArticleVector.nth_index(self.url, '/', 2)
+			return self.url[slash_index + 1 : period_index]
+		elif self.num_periods == 2:
+			first_period = ArticleVector.nth_index(self.url, '.', 1)
 			second_period = ArticleVector.nth_index(self.url, '.', 2)
 			return self.url[first_period + 1 : second_period]
-		else:
-			try:
-				first_period = self.url.index('.')
-				second_period = ArticleVector.nth_index(self.url, '.', 2)
-				return self.url[first_period + 1 : second_period]
-			except:
-				second_slash = ArticleVector.nth_index(self.url, '/', 2)
-				first_period = self.url.index('.')
-				return self.url[second_slash + 1 : first_period]
-
+		return ''
 	def grammar_index(self):
 		'''
 		returns the number of grammar mistakes of the article divided by the length of the article
@@ -163,11 +165,17 @@ class ArticleVector:
 		'''
 		returns 1 if url has reputable ending, 0 otherwise
 		'''
+		reputable_endings = ['.com', '.gov', '.org']
 		if self.url == "":
 			return None
-		reputable_endings = ['.com', '.gov', '.org']
-		period_index = ArticleVector.nth_index(self.url, '.', 2)
-		ending = self.url[period_index : period_index + 4]
+		if self.num_periods == 1:
+			period_index = ArticleVector.nth_index(self.url, '.', 1)
+			ending = self.url[period_index : period_index + 4]
+		elif self.num_periods == 2:
+			period_index = ArticleVector.nth_index(self.url, '.', 2)
+			ending = self.url[period_index : period_index + 4]
+		else:
+			return 0
 		if ending in reputable_endings:
 			return 1
 		else:
@@ -176,8 +184,14 @@ class ArticleVector:
 	def dot_gov_ending_index(self):
 		if self.url == "":
 			return None
-		period_index = ArticleVector.nth_index(self.url, '.', 2)
-		ending = self.url[period_index : period_index + 4]
+		if self.num_periods == 1:
+			period_index = ArticleVector.nth_index(self.url, '.', 1)
+			ending = self.url[period_index : period_index + 4]
+		elif self.num_periods == 2:
+			period_index = ArticleVector.nth_index(self.url, '.', 2)
+			ending = self.url[period_index : period_index + 4]
+		else:
+			return 0
 		if ending == ".gov":
 			return 1
 		else:
