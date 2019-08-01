@@ -98,6 +98,7 @@ def validate(model, X, Y):
 	X  - feature matrix i.e. list of lists
 	Y  - corresponding y values 
 	'''
+	statistics_dict = {}
 	predictions = []
 	for vector in X:
 		predictions.append(model.predict(np.array(vector).reshape(1, -1)))
@@ -107,21 +108,30 @@ def validate(model, X, Y):
 	for i in range(len(predictions)):
 		if predictions[i] == Y[i]:
 			correct += 1
+		else:
+			statistics_dict[Y[i]] = statistics_dict.get(Y[i], 0) + 1
 	percent_correct = (correct / total) * 100
+	print(statistics_dict)
 	print('This model got', str(percent_correct) + 'percent correct ||', str(correct), 'correct out of ', str(total))
 	return percent_correct
 
-def load_data(training_dict):
+def load_data(training_dict, cap = 0):
 	training_data = []
 	labels = []
 	for file in training_dict:
 		current = open(file, 'r')
 		data = current.readlines()
-		for i in range(len(data)):
-
-			data[i] = data[i].strip().split(' ')
+		limit = 0
+		if cap == 0:
+			limit = len(data)
+		else:
+			limit = cap
+		print(limit)
+		for i in range(limit):
 			if len(data[i]) < 2:
 				continue
+			data[i] = data[i].strip().split(' ')
+			
 			
 			assert type(data[i]) == list, 'not a list bruh'
 			labels.append(data[i].pop(-1))
@@ -136,11 +146,12 @@ training_file_dict2 = {'real_news_vectors-training.txt' : 1,'fake_news_vectors-t
 					'polarized_news_vectors-training.txt' : 5,'satire_vectors-training.txt' : 7}
 testing_file_dict = {'real_news_vectors-testing.txt' : 1,'fake_news_vectors-testing.txt' : 2,'opinion_vectors-testing.txt' : 3,
 					'polarized_news_vectors-testing.txt' : 5,'satire_vectors-testing.txt' : 7}
-training_data = load_data(training_file_dict2)
+print('Training data...')
+training_data = load_data(training_file_dict2, cap = 0)
 train_X = training_data[0]
 train_Y = training_data[1]
-
-testing_data = load_data(testing_file_dict)
+print('Testing data...')
+testing_data = load_data(testing_file_dict, cap = 0)
 test_X = testing_data[0]
 test_Y = testing_data[1]
 
