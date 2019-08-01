@@ -111,6 +111,7 @@ def validate(model, X, Y):
 		else:
 			statistics_dict[Y[i]] = statistics_dict.get(Y[i], 0) + 1
 	percent_correct = (correct / total) * 100
+	
 	print(statistics_dict)
 	print('This model got', str(percent_correct) + 'percent correct ||', str(correct), 'correct out of ', str(total))
 	return percent_correct
@@ -137,6 +138,7 @@ def load_data(training_dict, cap = 0):
 			labels.append(data[i].pop(-1))
 			training_data.append(data[i])
 		current.close()
+	#convert to int
 	for i in range(len(training_data)):
 		for j in range(len(training_data[i])):
 			training_data[i][j] = float(training_data[i][j])
@@ -147,11 +149,11 @@ training_file_dict2 = {'real_news_vectors-training.txt' : 1,'fake_news_vectors-t
 testing_file_dict = {'real_news_vectors-testing.txt' : 1,'fake_news_vectors-testing.txt' : 2,'opinion_vectors-testing.txt' : 3,
 					'polarized_news_vectors-testing.txt' : 5,'satire_vectors-testing.txt' : 7}
 print('Training data...')
-training_data = load_data(training_file_dict2, cap = 0)
+training_data = load_data(training_file_dict2, cap = 1000)
 train_X = training_data[0]
 train_Y = training_data[1]
 print('Testing data...')
-testing_data = load_data(testing_file_dict, cap = 0)
+testing_data = load_data(testing_file_dict, cap = 225)
 test_X = testing_data[0]
 test_Y = testing_data[1]
 
