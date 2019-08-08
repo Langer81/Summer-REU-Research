@@ -7,12 +7,10 @@ import random
 #Following is somewhat unnecessary, but may be useful if we ever separate the data.
 
 #each filename should be a file containing article urls separated by spaces.
-training_file_dict = {'satire_urls-testing.txt' : 7}
-training_file_dict2 = {'real_news_urls-training.txt' : 1,'fake_news_urls-training.txt' : 2,'opinion_urls-training.txt' : 3,
+training_file_dict = {'real_news_urls-training.txt' : 1,'fake_news_urls-training.txt' : 2,'opinion_urls-training.txt' : 3,
 					'polarized_news_urls-training.txt' : 5,'satire_urls-training.txt' : 7}
 testing_file_dict = {'real_news_urls-testing.txt' : 1,'fake_news_urls-testing.txt' : 2,'opinion_urls-testing.txt' : 3,
 					'polarized_news_urls-testing.txt' : 5,'satire_urls-testing.txt' : 7}
-testing69_dict = {'testing69.txt' : 69}
 
 def extract_data(filename, label):
 	data = extract_urls(filename)
@@ -117,6 +115,11 @@ def validate(model, X, Y):
 	return percent_correct
 
 def load_data(training_dict, cap = 0):
+	'''
+	training_dict: dictionary of string:int, where string is filename int is label
+	cap = max number of data points we want to extract
+	'''
+
 	training_data = []
 	labels = []
 	for file in training_dict:
@@ -144,22 +147,39 @@ def load_data(training_dict, cap = 0):
 			training_data[i][j] = float(training_data[i][j])
 	return training_data, labels
 
-training_file_dict2 = {'real_news_vectors-training.txt' : 1,'fake_news_vectors-training.txt' : 2,'opinion_vectors-training.txt' : 3,
+training_file_dict = {'real_news_vectors-training.txt' : 1,'fake_news_vectors-training.txt' : 2,'opinion_vectors-training.txt' : 3,
 					'polarized_news_vectors-training.txt' : 5,'satire_vectors-training.txt' : 7}
 testing_file_dict = {'real_news_vectors-testing.txt' : 1,'fake_news_vectors-testing.txt' : 2,'opinion_vectors-testing.txt' : 3,
 					'polarized_news_vectors-testing.txt' : 5,'satire_vectors-testing.txt' : 7}
-print('Training data...')
-training_data = load_data(training_file_dict2, cap = 1000)
-train_X = training_data[0]
-train_Y = training_data[1]
-print('Testing data...')
-testing_data = load_data(testing_file_dict, cap = 225)
-test_X = testing_data[0]
-test_Y = testing_data[1]
 
 
-support_vector_machine = sklearn.svm.SVC(gamma = 'scale')
-support_vector_machine.fit(train_X, train_Y)
+def retrieve_data(file_dict, cap):
+	'''
+	returns:
+	X: feature matrix from file dict
+	'''
 
-validate(support_vector_machine, test_X, test_Y)
+	print('Retreiving data...')
+	training_data = load_data(file_dict, cap)
+	X = training_data[0]
+	Y = training_data[1]
+	return X, Y
+
+def svm_classifier(X_feature_matrix, Y_labels):
+	support_vector_machine = sklearn.svm.SVC(gamma = 'scale')
+	support_vector_machine.fit(X_feature_matrix, Y_labels)
+	return support_vector_machine
+
+def run_predictions(trained_classifier, test_X, test_Y):
+	'''
+	trained_classifier - a trained classifier from sklearn
+	test_X - feature matrix for testing the classifier
+	test_Y - list of labels that correspond to test_X
+	'''
+	predictions = []
+	for vector in test_X:
+		predictions.append(trained_classifier.predict(np.array(vector).reshape(1, -1)))
+	return predictions
+
+#validate(support_vector_machine, test_X, test_Y)
 
