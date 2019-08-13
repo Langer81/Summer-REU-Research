@@ -2,7 +2,7 @@ from newspaper import Article
 from goose3 import Goose
 import language_check
 import nltk
-#from pyapa import pyapa
+from pyapa import pyapa
 from ap_style_checker import StyleChecker
 
 class ArticleVector:
@@ -337,7 +337,7 @@ class ArticleVector:
 		self.vector[9] = self.all_caps_index() # number of all caps words / number of total words
 		self.vector[10] = self.from_satire_source_index() # whether article is from satire news outlet.
 		self.vector[11] = self.exclamation_index() # number of exclamation points / number of total words
-		#self.vector[12] = self.apa_index() # number of apa errors in an article
+		self.vector[12] = self.apa_index() # number of apa errors in an article
 		self.vector[13] = self.name_source_index() # number of proper nouns in article / number of total words
 		self.vector[14] = self.interjection_index() # number of interjections in article / number of total words
 		self.vector[15] = self.you_index() # number of times you shows up in article / number of total words
