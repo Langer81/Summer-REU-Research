@@ -126,5 +126,5 @@ def vector_diagnostics(vector_data_file, label):
 # find_errors(support_vector_machine, 'polarized_news_vectors-testing.txt', 5)
 for file in testing_file_dict:
 	title = file[:file.index('_')]
-	print('False negatives for', title, 'data (' + str(testing_file_dict[file]) + ')')
-	find_errors(support_vector_machine, file, testing_file_dict[file])
+	print('False negatives for', title, 'data (' + str(testing_file_dict_combined[file]) + ')')
+	find_errors(support_vector_machine, file, testing_file_dict_combined[file])
