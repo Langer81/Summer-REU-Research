@@ -2,16 +2,54 @@ import classifier
 import sklearn
 from sklearn.metrics import recall_score, precision_score, f1_score, roc_auc_score
 import numpy as np
+import random
 
-training_file_dict = {'real_news_vectors-training.txt' : 1,'fake_news_vectors-training.txt' : 2,'opinion_vectors-training.txt' : 3,
+training_file_dict_uncombined = {'real_news_vectors-training.txt' : 1,'fake_news_vectors-training.txt' : 2,'opinion_vectors-training.txt' : 3,
 					'polarized_news_vectors-training.txt' : 5,'satire_vectors-training.txt' : 7}
-testing_file_dict = {'real_news_vectors-testing.txt' : 1,'fake_news_vectors-testing.txt' : 2,'opinion_vectors-testing.txt' : 3,
+training_file_dict_combined = {'real_news_vectors-training.txt' : 1,'fake_news_vectors-training.txt' : 2,'opinion_vectors-training.txt' : 3,
+					'polarized_news_vectors-training.txt' : 3,'satire_vectors-training.txt' : 7}
+testing_file_dict_uncombined = {'real_news_vectors-testing.txt' : 1,'fake_news_vectors-testing.txt' : 2,'opinion_vectors-testing.txt' : 3,
 					'polarized_news_vectors-testing.txt' : 5,'satire_vectors-testing.txt' : 7}
+testing_file_dict_combined = {'real_news_vectors-testing.txt' : 1,'fake_news_vectors-testing.txt' : 2,'opinion_vectors-testing.txt' : 3,
+					'polarized_news_vectors-testing.txt' : 3,'satire_vectors-testing.txt' : 7}
 
-train_X, train_Y = classifier.retrieve_data(training_file_dict, 1000)
-test_X, test_Y = classifier.retrieve_data(testing_file_dict, 225) 
-true_Y = test_Y
+train_X_combined, train_Y_combined = classifier.retrieve_data(training_file_dict_combined, 1000)
+train_X_uncombined, train_Y_uncombined = classifier.retrieve_data(training_file_dict_uncombined, 1000)
+test_X_combined, test_Y_combined = classifier.retrieve_data(testing_file_dict_combined, 225) 
+test_X_uncombined, test_Y_uncombined = classifier.retrieve_data(testing_file_dict_uncombined, 225)
 
+def flatten_data(train_X, train_Y):
+	'''
+	UNFINISHED, BUGGY AF.
+	changes data to ensure that there is an equal amount of each category. (Should be a one time use for combining opinion and polarized news
+	'''
+	unique_labels = dict()
+	flattened_X = []
+	flattened_Y = []
+	for label in train_Y:
+		unique_labels[label] = unique_labels.get(label, 0) + 1
+	maximum = max(unique_labels.values())
+	minimum = min(unique_labels.values())
+
+	for key in unique_labels:
+		if unique_labels[key] > minimum:
+			current_label = key
+			for i in range(len(train_Y)):
+				if current_label == train_Y[i]:
+					random_num = random.randrange(0,2)
+					if random_num == 0:
+						flattened_X.append(train_X[i])
+						flattened_Y.append(train_Y[i])
+					else:
+						continue
+		flattened_X.append(train_X[i])
+		flattened_Y.append(train_Y[i])
+	return flattened_X, flattened_Y
+def test_flatten_data():
+	X = [[1,2,3],[1,2,3],[2,3,4],[2,3,4],[3,4,5],[3,4,5],[3,4,5],[3,4,5],[12,13,14]]
+	Y = [1, 1, 2, 2, 3, 3, 3, 3, 4]
+	flattened_X, flattened_Y = flatten_data(X,Y)
+	print(flattened_X, flattened_Y)
 def validate(model, X, Y):
 	'''
 	model - sklearn model with fit/predict
@@ -56,10 +94,10 @@ def get_statistics(true_Y, predictions):
 ###############################
 ####Support Vector Machine#####
 ###############################
-support_vector_machine = classifier.svm_classifier(train_X, train_Y)
-svm_predictions = classifier.run_predictions(support_vector_machine, test_X, test_Y)
-get_statistics(true_Y, svm_predictions)
-validate(support_vector_machine, test_X, true_Y)
+support_vector_machine = classifier.svm_classifier(train_X_combined, train_Y_combined)
+svm_predictions = classifier.run_predictions(support_vector_machine, test_X_combined, test_Y_combined)
+get_statistics(test_Y_combined, svm_predictions)
+validate(support_vector_machine, test_X_combined, test_Y_combined)
 
 def find_errors(model, vector_data_file, label):
 	'''
@@ -68,7 +106,7 @@ def find_errors(model, vector_data_file, label):
 	'''
 	data, labels = classifier.load_data({vector_data_file : label}, cap = 225)
 	incorrect_predictions = {}
-	model_predictions =[]
+	model_predictions = []
 	for vector in data:
 		model_predictions.extend(model.predict(np.array(vector).reshape(1, -1)))
 	#print(model_predictions[0])
