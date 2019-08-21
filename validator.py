@@ -50,6 +50,7 @@ def test_flatten_data():
 	Y = [1, 1, 2, 2, 3, 3, 3, 3, 4]
 	flattened_X, flattened_Y = flatten_data(X,Y)
 	print(flattened_X, flattened_Y)
+	
 def validate(model, X, Y):
 	'''
 	model - sklearn model with fit/predict
@@ -124,7 +125,7 @@ def vector_diagnostics(vector_data_file, label):
 # find_errors(support_vector_machine, 'opinion_vectors-testing.txt', 3)
 # print('False negatives for Polarized News data:')
 # find_errors(support_vector_machine, 'polarized_news_vectors-testing.txt', 5)
-for file in testing_file_dict:
+for file in testing_file_dict_combined:
 	title = file[:file.index('_')]
 	print('False negatives for', title, 'data (' + str(testing_file_dict_combined[file]) + ')')
 	find_errors(support_vector_machine, file, testing_file_dict_combined[file])

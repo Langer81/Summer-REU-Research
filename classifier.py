@@ -105,18 +105,26 @@ def load_data(training_dict, cap = 0):
 		data = current.readlines()
 		limit = 0
 		if cap == 0:
-			limit = len(data)
+			if 'opinion' in file or 'polarized' in file:
+				limit = len(data) / 2
+			else:
+				limit = len(data)
 		else:
+			if 'opinion' in file or 'polarized' in file:
+				limit = cap / 2
 			limit = cap
 		#print(limit)
-		for i in range(limit):
+
+		for i in range(int(limit)):
 			if len(data[i]) < 2:
 				continue
 			data[i] = data[i].strip().split(' ')
 			assert type(data[i]) == list, 'not a list bruh'
-			labels.append(data[i].pop(-1))
+			data[i].pop(-1) # remove label in the text file
+			labels.append(training_dict[file])
 			training_data.append(data[i])
 		current.close()
+
 	#convert to int
 	for i in range(len(training_data)):
 		for j in range(len(training_data[i])):
