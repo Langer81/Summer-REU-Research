@@ -88,7 +88,7 @@ def get_statistics(true_Y, predictions):
 	print('recall:', str(recall))
 	print('precision', str(precision))
 	print('f1:', str(f1))
-	#print('auc:', str(auc))
+	#print('auc:', str(auc)) a
 	return [recall, precision, f1]
 
 ###############################
