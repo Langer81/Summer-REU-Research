@@ -17,9 +17,9 @@ true_Y = test_Y
 
 def get_statistics(true_Y, predictions):
 	results_dict = {}
-	recall = recall_score(true_Y, predictions)
-	precision = precision_score(true_Y, predictions)
-	f1 = f1_score(true_Y, predictions)
+	recall = recall_score(true_Y, predictions, average = None)
+	precision = precision_score(true_Y, predictions, average = None)
+	f1 = f1_score(true_Y, predictions, average = None)
 	print('recall:', str(recall))
 	print('precision', str(precision))
 	print('f1:', str(f1))
