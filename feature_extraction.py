@@ -196,15 +196,15 @@ class ArticleVector:
 			return 1
 		else:
 			return 0
-
+	'''
 	def apa_index(self):
-		'''
+		
 		returns number of apa errors
-		'''
+		
 		checker = pyapa.ApaCheck()
 		matches = checker.match(self.text)
 		return len(matches)
-
+	'''
 	def today_index(self):
 		'''
 		returns the number of times "today" appears in the article text
