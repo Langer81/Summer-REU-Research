@@ -95,10 +95,15 @@ def get_statistics(true_Y, predictions):
 ###############################
 ####Support Vector Machine#####
 ###############################
-support_vector_machine = classifier.svm_classifier(train_X_combined, train_Y_combined)
-svm_predictions = classifier.run_predictions(support_vector_machine, test_X_combined, test_Y_combined)
-get_statistics(test_Y_combined, svm_predictions)
-validate(support_vector_machine, test_X_combined, test_Y_combined)
+support_vector_machine = classifier.svm_classifier(train_X_uncombined, train_Y_uncombined)
+svm_predictions = classifier.run_predictions(support_vector_machine, test_X_uncombined, test_Y_uncombined)
+get_statistics(test_Y_uncombined, svm_predictions)
+validate(support_vector_machine, test_X_uncombined, test_Y_uncombined)
+
+# support_vector_machine_uncombined = classifier.svm_classifier(train_X_uncombined, train_Y_uncombined)
+# svm_predictions_uncombined = classifier.run_predictions(support_vector_machine, test_X_uncombined, test_Y_uncombined)
+# get_statistics(test_Y_uncombined, svm_predictions)
+# validate(support_vector_machine, test_X_uncombined, test_Y_uncombined)
 
 def find_errors(model, vector_data_file, label):
 	'''
@@ -125,7 +130,11 @@ def vector_diagnostics(vector_data_file, label):
 # find_errors(support_vector_machine, 'opinion_vectors-testing.txt', 3)
 # print('False negatives for Polarized News data:')
 # find_errors(support_vector_machine, 'polarized_news_vectors-testing.txt', 5)
-for file in testing_file_dict_combined:
+for file in testing_file_dict_uncombined:
 	title = file[:file.index('_')]
-	print('False negatives for', title, 'data (' + str(testing_file_dict_combined[file]) + ')')
-	find_errors(support_vector_machine, file, testing_file_dict_combined[file])
+	print('False negatives for', title, 'data (' + str(testing_file_dict_uncombined[file]) + ')')
+	find_errors(support_vector_machine, file, testing_file_dict_uncombined[file])
+# for file in testing_file_dict_uncombined:
+# 	title = file[:file.index('_')]
+# 	print('False negatives for', title, 'data (' + str(testing_file_dict_uncombined[file]) + ')')
+# 	find_errors(support_vector_machine, file, testing_file_dict_uncombined[file])
