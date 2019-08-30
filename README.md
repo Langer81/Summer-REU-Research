@@ -48,28 +48,28 @@ Important Features that have not been implemented:
 These are the more signficant missing features. Basically, the current implemented features are the simpler, more trivial. The above features will require a lot more work.
 
 Current classifier accuracy using support vector machine:
-recall: [0.69642857 0.95535714 0.03125    0.30357143 0.89285714]
-precision [0.82539683 0.87346939 0.5        0.24548736 0.50632911]
-f1: [0.75544794 0.91257996 0.05882353 0.27145709 0.64620355]
-{1: 68, 2: 10, 3: 217, 5: 156, 7: 24}
-This model got 57.58928571428571 percent correct || 645 correct out of  1120
+1. recall: [0.69642857 0.95535714 0.03125    0.30357143 0.89285714]
+2. precision [0.82539683 0.87346939 0.5        0.24548736 0.50632911]
+3. f1: [0.75544794 0.91257996 0.05882353 0.27145709 0.64620355]
+4. {1: 68, 2: 10, 3: 217, 5: 156, 7: 24}
+5. This model got 57.58928571428571 percent correct || 645 correct out of  1120
 
 The indices of the recall/precision/f1 lists represent the labels of the type of news article:
-0 = real news
-1 = fake news
-2 = opinion news
-4 = polarized news
-6 = satire data
+1 = real news
+2 = fake news
+3 = opinion news
+5 = polarized news
+7 = satire data
 
 As you can see, with the current 5 categories that have been implemented, there is a 58% accuracy, in the case that the base level without a classifier, and just tossing a coin is 20%
 accurate. 
 
 In order to use the classifier, first you must collect data. To do this use the prepare_data() method from classifier.py. The input is a dictionary with data text files as keys and their corresponding labels. see training_file_dict as an example. 
 
-support_vector_machine = classifier.svm_classifier(train_X_uncombined, train_Y_uncombined)
-svm_predictions = classifier.run_predictions(support_vector_machine, test_X_uncombined, test_Y_uncombined)
-get_statistics(test_Y_uncombined, svm_predictions)
-validate(support_vector_machine, test_X_uncombined, test_Y_uncombined)
+1. support_vector_machine = classifier.svm_classifier(train_X_uncombined, train_Y_uncombined)
+2. svm_predictions = classifier.run_predictions(support_vector_machine, test_X_uncombined, test_Y_uncombined)
+3. get_statistics(test_Y_uncombined, svm_predictions)
+4. validate(support_vector_machine, test_X_uncombined, test_Y_uncombined)
 ^^these lines of code will be how you run the classifier for validation. 
 
 ***Important note***
