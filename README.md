@@ -82,10 +82,6 @@ data is separated out into urls, vectors, and then split into training and testi
 5. fake_news_vectors-training.txt - The corresponding fake news training URLs, from fake_news_urls-training but vectorized into their respective features.
 
 
-More importantly, get in contact with me so I can explain everything much more accurately:
-
-Cell: 814-308-4495
-Email: terrencegl10@gmail.com
 
 Good Luck.
 
